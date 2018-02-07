@@ -7,7 +7,9 @@
 <form method=POST action="GetDisplayNameServlet">
 
 <h1>Get Rally Display Name Service</h1>
-<h3>Enter the username that you are trying to lookup and provide the Rally API Key, click Get Display Name, and we will tell you your Display name</h3>
+<h3>1. Enter the username that you are trying to lookup</h3>
+<h3>2. Provide the Rally API Key</h3>
+<h3>3. Click Get Display Name, and we will tell you your Display name</h3>
 
 <table width="50%" border="1">
 <tr><td><center>
@@ -22,7 +24,7 @@ Enter API Key: <input type="text" name="apikey" value="_fkTPqTeS62D6PfCEbDViMRT2
 </td></tr>
 </table>
 <br><br>
-<i>Last Updated: 7-Feb-2018</i>
+<i>Last Updated: 8-Feb-2018</i>
 
 
 </form>
