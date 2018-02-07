@@ -4,4 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>GetDisplayNameServlet</servlet-name>
+  	<display-name>GetDisplayNameServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.stevenckwong.ACWebServicesIntegration.GetDisplayNameServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>GetDisplayNameServlet</servlet-name>
+  	<url-pattern>/GetDisplayNameServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
