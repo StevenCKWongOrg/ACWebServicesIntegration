@@ -4,7 +4,7 @@
 <title>Web Application to Demo Java Integration with Rally</title>
 </head>
 <body>
-<form method=POST action="LoginGetNameServlet">
+<form method=POST action="GetDisplayNameServlet">
 
 <h1>Get Rally Display Name Service</h1>
 <h3>Enter the username that you are trying to lookup and provide the Rally API Key, click Get Display Name, and we will tell you your Display name</h3>
@@ -16,7 +16,7 @@ Enter Username: <input type="text" name="username" value="stevenck.wong@acme.com
 Enter API Key: <input type="text" name="apikey" value="_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM" size="40"/> <br>
 <br>
 
-<input type="Submit" value="Get Display Name" id="loginbutton" /><br>
+<input type="Submit" value="Get Display Name" id="getDisplayNameButton" /><br>
 <br>
 </center>
 </td></tr>
