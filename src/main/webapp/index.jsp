@@ -8,7 +8,7 @@
 <form method=POST action="LoginGetNameServlet">
 
 <h1>What's my Rally Display Name?</h1>
-<h3>Enter your username and password to Rally below, and we will tell you your Display name</h3>
+<h3>Enter your Rally API Key, click Get Display Name, and we will tell you your Display name</h3>
 
 <table width="50%" border="1">
 <tr><td><center>
