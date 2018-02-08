@@ -11,7 +11,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -31,6 +31,19 @@
       <artifactId>tomcat7-maven-plugin</artifactId>
       <version>2.2</version>
     </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>3.5.3</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.3</version>
+    </dependency>
+
+
   </dependencies>
   <build>
   	<plugins>
@@ -42,7 +55,50 @@
   	      <url>http://localhost:8080/manager/text</url>
   	      <server>TomcatServerMac</server> <!-- This refers to server in %MAVEN_HOME%/conf/settings.xml -->
   	    </configuration>
+  	    <executions>
+  	    	  <execution>
+  	    	    <goals>
+  	    	      <goal>
+  	    	        redeploy
+  	    	      </goal>
+  	    	    </goals>
+  	    	    <phase>
+  	    	      pre-integration-test
+  	    	    </phase>
+  	    	  </execution>
+  	    </executions>
   	  </plugin>
+  	  <!-- Configure Surefire to ignore Integration (Selenium) test cases -->
+  	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.18.1</version>
+        <configuration>
+          <excludes>
+            <exclude>**/*UITest.java</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+  	  <!-- Failsafe Plugin for Integration Testing -->
+  	  <plugin>
+  	    <groupId>org.apache.maven.plugins</groupId>
+  	    <artifactId>maven-failsafe-plugin</artifactId>
+  	    <version>2.20.1</version>
+  	    <configuration>
+  	    	  <includes>
+  	    	    <include>**/*UITest</include>
+  	    	  </includes>
+  	    </configuration>
+  	    <executions>
+  	      <execution>
+  	        <goals>
+  	          <goal>integration-test</goal>
+  	          <goal>verify</goal>
+  	        </goals>
+  	      </execution>
+  	    </executions>
+  	  </plugin>
+  	  
   	</plugins>
     <finalName>ACWebServicesIntegration</finalName>
   </build>
