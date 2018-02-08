@@ -42,8 +42,8 @@ public class GetDisplayNameUITest {
 		
 		WebElement apikeyBox = driver.findElement(By.name("apikey"));
 		apikeyBox.clear();
-		apikeyBox.sendKeys("_x3imUPkjQdiySkvNCrs0d03TiJhzCkkEmswt6fpHOao");
-		// apikeyBox.sendKeys("_x3imUPkjQdiySkvNCrs0d03TiJhzCkkEmswt6fpHOxx");
+		apikeyBox.sendKeys("_x3imUPkjQdiySkvNCrs0d03TiJhzCkkEmswt6fpHOao"); // good API Key
+		// apikeyBox.sendKeys("_x3imUPkjQdiySkvNCrs0d03TiJhzCkkEmswt6fpHOxx"); // bad API Key
 		
 		//WebElement loginButton = driver.findElement(By.name("loginbutton"));
 		WebElement loginButton = driver.findElement(By.id("getDisplayNameButton"));
