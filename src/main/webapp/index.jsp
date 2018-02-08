@@ -11,8 +11,8 @@
 <h3>2. Provide the Rally API Key</h3>
 <h3>3. Click Get Display Name, and we will tell you your Display name</h3>
 
-<table width="50%" border="1">
-<tr><td><center>
+<table style="width:50%;background-color: beige; border-style: ridge; border-width:medium">
+<tr><td><center><br>
 Enter Username: <input type="text" name="username" value="stevenck.wong@acme.com" size="40"/> <br>
 <br>
 Enter API Key: <input type="text" name="apikey" value="_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM" size="40"/> <br>
@@ -24,7 +24,7 @@ Enter API Key: <input type="text" name="apikey" value="_fkTPqTeS62D6PfCEbDViMRT2
 </td></tr>
 </table>
 <br><br>
-<i>Last Updated: 8-Feb-2018</i>
+<i>Last Updated: 8-February-2018</i>
 
 
 </form>
