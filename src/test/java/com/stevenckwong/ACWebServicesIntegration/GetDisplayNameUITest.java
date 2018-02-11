@@ -57,6 +57,7 @@ public class GetDisplayNameUITest {
 		
 		// Thread.sleep(2000);
 		driver.quit();
+		driver.close();
 		// driver.close();
 		
 	}
