@@ -53,6 +53,33 @@ public class MyUtility {
 		return rally;
 	}
 	
+	// Refactored Code: added method to query for Display Name
+	public String queryForDisplayName(String apiKey, String username) throws ACWebServicesException {
+		
+		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
+		
+		String QueryString = "(UserName%20%3D%20"+username+")&start=1&pagesize=20";
+		String queryURL = "/user?query=" + QueryString + "&order=";	
+		String result = new String();
+		// boolean authenticated = true;
+		try {
+			result = rally.getClient().doGet(queryURL);
+		} catch (java.io.IOException ioe) {
+			String err = ioe.getMessage();
+			result = err;
+			// Full error message should be: HTTP/1.1 401 Full authentication is required to access this resource
+			if (err.contains("401")) {
+				ACWebServicesException ace = new ACWebServicesException(ioe);
+				ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
+				throw ace;
+			//	authenticated = false;
+			}
+		}
+		
+		return result;
+
+	}
+	
 	public String logTestRunResult(String testID, String testResult, String buildNumber) {
 		
 		String apiKey = "_CGJbIEnhQDq45u70AWVPFcMsEmGCkO6tZEhYDyg5Dw";

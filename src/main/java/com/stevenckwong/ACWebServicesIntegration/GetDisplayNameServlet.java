@@ -40,6 +40,8 @@ public class GetDisplayNameServlet extends HttpServlet {
 		
 		MyUtility myUtil = new MyUtility();
 		
+		/*  // Refactored this part into MyUtility
+		 * 
 		RallyRestApi rally = myUtil.connectToRallyUsingAPIKey(apikey);
 		
 		String QueryString = "(UserName%20%3D%20"+username+")&start=1&pagesize=20";
@@ -56,7 +58,18 @@ public class GetDisplayNameServlet extends HttpServlet {
 				authenticated = false;
 			}
 		}
-		String jsonResult = result;
+		*/
+		
+		boolean authenticated = true;
+		String result = new String();
+		
+		try {
+			result = myUtil.queryForDisplayName(apikey, username);
+		}
+		catch (ACWebServicesException ace) {
+			authenticated = false;
+		}
+		
 		String displayName = "";
 		String firstName = "";
 		String displayNameJSON = "";
@@ -70,7 +83,7 @@ public class GetDisplayNameServlet extends HttpServlet {
 			displayName = "unauthenticated";
 		}
 		
-		rally.close();
+		// rally.close();
 		
 		response.getWriter().append("<html><head><title>Agile Central Get Display Name Service</title></head><body>");
 		
