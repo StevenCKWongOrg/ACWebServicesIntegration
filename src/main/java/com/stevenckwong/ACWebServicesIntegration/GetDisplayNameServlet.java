@@ -70,6 +70,7 @@ public class GetDisplayNameServlet extends HttpServlet {
 			authenticated = false;
 		}
 		
+		String jsonResult = result;
 		String displayName = "";
 		String firstName = "";
 		String displayNameJSON = "";
