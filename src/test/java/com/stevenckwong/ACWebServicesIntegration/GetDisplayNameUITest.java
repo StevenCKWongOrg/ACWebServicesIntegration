@@ -56,8 +56,8 @@ public class GetDisplayNameUITest {
 		assertEquals("I'm Team Member 1 for B1",displayName);
 		
 		// Thread.sleep(2000);
-		driver.quit();
 		driver.close();
+		driver.quit();
 		// driver.close();
 		
 	}
