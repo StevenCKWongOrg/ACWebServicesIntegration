@@ -3,6 +3,7 @@ package com.stevenckwong.ACWebServicesIntegration;
 import java.io.IOException;
 import java.net.URI;
 import com.rallydev.rest.RallyRestApi;
+import org.json.*;
 
 public class MyUtility {
 	
@@ -18,6 +19,24 @@ public class MyUtility {
 		int endIndex = result.indexOf("\"", startIndex);
 		
 		String displayName = result.substring(startIndex, endIndex);
+		return displayName;
+	}
+	
+	// This method uses the JSON libraries to get the DisplayName from the JSON result
+	// retrieved from Rally.
+	public String parseJSONResultForDisplayName(String result) {
+		String displayName = "Uninitialized";
+		JSONObject jObj = new JSONObject(result);
+		JSONObject jsonQueryResult = jObj.getJSONObject("QueryResult"); 
+		
+		try {
+			JSONArray jsonArr = jsonQueryResult.getJSONArray("Results");
+			displayName = jsonArr.optJSONObject(0).optString("_refObjectName");
+			
+		} catch (JSONException je) {
+			return jObj.optString("TotalResultCount");
+		}
+		
 		return displayName;
 	}
 	

@@ -42,7 +42,12 @@
       <artifactId>httpclient</artifactId>
       <version>4.5.3</version>
     </dependency>
-
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20160810</version>
+    </dependency>
 
   </dependencies>
   <build>
@@ -53,7 +58,7 @@
   	    <version>2.2</version>
   	    <configuration>
   	      <url>http://localhost:8080/manager/text</url>
-  	      <server>TomcatServerMac</server> <!-- This refers to server in %MAVEN_HOME%/conf/settings.xml -->
+  	      <server>TomcatServer</server> <!-- This refers to server in %MAVEN_HOME%/conf/settings.xml -->
   	    </configuration>
   	    <executions>
   	    	  <execution>

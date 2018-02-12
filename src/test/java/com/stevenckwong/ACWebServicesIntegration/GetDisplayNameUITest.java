@@ -30,8 +30,14 @@ public class GetDisplayNameUITest {
 	
 	private void runTest() throws InterruptedException {
 		
+		// Make sure you run "mvn" with "-DChromeDriverLocation=<actual_chromedriver_location>" 
 		
-		System.setProperty("webdriver.chrome.driver", "/opt/chromedriver");
+		// Parameterizing the location of ChromeDriver as some developers are on Mac and some on Windows
+		
+		String chromeDriverLocation = System.getProperty("ChromeDriverLocation");
+		
+		// System.setProperty("webdriver.chrome.driver", "/opt/chromedriver");
+		System.setProperty("webdriver.chrome.driver", chromeDriverLocation);
 		
 		WebDriver driver = new ChromeDriver();
 		driver.get("http://localhost:8080/ACWebServicesIntegration/index.jsp");
