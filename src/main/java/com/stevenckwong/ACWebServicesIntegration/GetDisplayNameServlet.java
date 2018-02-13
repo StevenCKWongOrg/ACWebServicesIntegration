@@ -70,12 +70,16 @@ public class GetDisplayNameServlet extends HttpServlet {
 			authenticated = false;
 		}
 		
+		String jsonResult = result;
 		String displayName = "";
 		String firstName = "";
+		String displayNameJSON = "";
 		
 		if (authenticated) {
 			displayName = myUtil.parseResultForDisplayName(result);
 			firstName = myUtil.parseResultForFirstName(result);
+			displayNameJSON = myUtil.parseJSONResultForDisplayName(jsonResult);
+			
 		} else {
 			displayName = "unauthenticated";
 		}
@@ -96,6 +100,7 @@ public class GetDisplayNameServlet extends HttpServlet {
 		}
 		else {
 			response.getWriter().append("<h1>Display Name is " + displayName + "</h1>\n");
+			response.getWriter().append("<h1>Display Name (using JSON Parser) is " + displayNameJSON + "</h1>\n");
 			response.getWriter().append("<h1>First Name is " + firstName + "</h1>\n");
 		}
 
