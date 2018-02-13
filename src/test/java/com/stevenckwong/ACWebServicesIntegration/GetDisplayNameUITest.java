@@ -36,6 +36,11 @@ public class GetDisplayNameUITest {
 		
 		String chromeDriverLocation = System.getProperty("ChromeDriverLocation");
 		
+		if (chromeDriverLocation==null) {
+			System.out.println("ChromeDriverLocation not set. Please set with -DChromeDriverLocation=<actual-chromedriver-location-path>");
+			chromeDriverLocation = "/opt/chromedriver";
+		}
+		
 		// System.setProperty("webdriver.chrome.driver", "/opt/chromedriver");
 		System.setProperty("webdriver.chrome.driver", chromeDriverLocation);
 		
