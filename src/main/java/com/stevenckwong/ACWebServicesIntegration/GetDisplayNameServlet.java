@@ -64,24 +64,30 @@ public class GetDisplayNameServlet extends HttpServlet {
 		String result = new String();
 		
 		try {
-			result = myUtil.queryForDisplayName(apikey, username);
+			// result = myUtil.queryForDisplayName(apikey, username);
+			result = myUtil.queryForUserDetails(apikey, username);
 		}
 		catch (ACWebServicesException ace) {
 			authenticated = false;
 		}
 		
-		String jsonResult = result;
+		// String jsonResult = result;
 		String displayName = "";
 		String firstName = "";
-		String displayNameJSON = "";
+		// String lastName = "";
+		// String displayNameJSON = "";
 		
 		if (authenticated) {
-			displayName = myUtil.parseResultForDisplayName(result);
-			firstName = myUtil.parseResultForFirstName(result);
-			displayNameJSON = myUtil.parseJSONResultForDisplayName(jsonResult);
+			displayName = myUtil.parseJSONResultForDisplayName(result);
+			firstName = myUtil.parseJSONResultForFirstName(result);
+			// lastName = myUtil.parseJSONResultForLastName(result);
+			
+			// displayNameJSON = myUtil.parseJSONResultForDisplayName(jsonResult);
 			
 		} else {
 			displayName = "unauthenticated";
+			firstName = "unauthenticated";
+			// lastName = "unauthenticated";
 		}
 		
 		// rally.close();
@@ -100,8 +106,9 @@ public class GetDisplayNameServlet extends HttpServlet {
 		}
 		else {
 			response.getWriter().append("<h1>Display Name is " + displayName + "</h1>\n");
-			response.getWriter().append("<h1>Display Name (using JSON Parser) is " + displayNameJSON + "</h1>\n");
+			// response.getWriter().append("<h1>Display Name (using JSON Parser) is " + displayNameJSON + "</h1>\n");
 			response.getWriter().append("<h1>First Name is " + firstName + "</h1>\n");
+			// response.getWriter().append("<h1>Last Name is " + lastName + "</h1>\n");
 		}
 
 		response.getWriter().append("<input type=\"hidden\" id=\"displayName\" value=\"" + displayName + "\" />");
