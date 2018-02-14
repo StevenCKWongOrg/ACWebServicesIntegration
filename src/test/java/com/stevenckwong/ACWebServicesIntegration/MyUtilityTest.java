@@ -87,7 +87,7 @@ public class MyUtilityTest {
 		String result = myUtil.queryForUserDetails(apikey, username);
 		String lastName = myUtil.parseJSONResultForLastName(result);
 		
-		Assert.assertEquals("Allan", lastName);
+		Assert.assertEquals("TM", lastName);
 		
 	}
 		
