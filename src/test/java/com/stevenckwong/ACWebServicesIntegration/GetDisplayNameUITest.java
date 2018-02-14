@@ -94,7 +94,7 @@ public class GetDisplayNameUITest {
 		
 		WebElement usernameBox = driver.findElement(By.name("username"));
 		usernameBox.clear();
-		usernameBox.sendKeys("tm1-b1@stevenckwong.com");
+		usernameBox.sendKeys("training01@cajapan.com");
 		
 		WebElement apikeyBox = driver.findElement(By.name("apikey"));
 		apikeyBox.clear();
@@ -109,7 +109,7 @@ public class GetDisplayNameUITest {
 		WebElement hiddenDisplayName = driver.findElement(By.id("displayName"));
 		String displayName = hiddenDisplayName.getAttribute("value");
 		try {
-			assertEquals("I'm Team Member 1 for B1",displayName);
+			assertEquals("Training User",displayName);
 			// assertEquals("I'm Team Member 1 for B1 -- FAILTHIS ",displayName); // uncomment this line to fail test
 		} catch (org.junit.ComparisonFailure cfe) {
 			System.out.println("======JUNIT TEST FAIL======");
@@ -131,7 +131,7 @@ public class GetDisplayNameUITest {
 		
 		WebElement usernameBox = driver.findElement(By.name("username"));
 		usernameBox.clear();
-		usernameBox.sendKeys("tm1-b1@stevenckwong.com");
+		usernameBox.sendKeys("training01@cajapan.com");
 		
 		WebElement apikeyBox = driver.findElement(By.name("apikey"));
 		apikeyBox.clear();
@@ -148,7 +148,7 @@ public class GetDisplayNameUITest {
 		String firstName = hiddenFirstName.getAttribute("value");
 		System.out.println("First Name: " + firstName);
 		try {
-			assertEquals("TM 1 for Team B1",firstName);
+			assertEquals("Training",firstName);
 			// assertEquals("TM 1 for Team B1 -- FAILTHIS",firstName); //uncomment this line to fail the test
 			
 		} catch (org.junit.ComparisonFailure cfe) {
@@ -171,7 +171,7 @@ public class GetDisplayNameUITest {
 		
 		WebElement usernameBox = driver.findElement(By.name("username"));
 		usernameBox.clear();
-		usernameBox.sendKeys("tm1-b1@stevenckwong.com");
+		usernameBox.sendKeys("training01@cajapan.com");
 		
 		WebElement apikeyBox = driver.findElement(By.name("apikey"));
 		apikeyBox.clear();
@@ -188,7 +188,7 @@ public class GetDisplayNameUITest {
 		String lastName = hiddenLastName.getAttribute("value");
 		System.out.println("Last Name: " + lastName);
 		try {
-			assertEquals("Simplicity",lastName);
+			assertEquals("User 1",lastName);
 			// assertEquals("TM 1 for Team B1 -- FAILTHIS",firstName); //uncomment this line to fail the test
 			
 		} catch (org.junit.ComparisonFailure cfe) {
