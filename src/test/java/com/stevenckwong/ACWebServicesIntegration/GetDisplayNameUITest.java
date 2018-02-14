@@ -112,10 +112,6 @@ public class GetDisplayNameUITest {
 			assertEquals("Training User",displayName);
 			// assertEquals("I'm Team Member 1 for B1 -- FAILTHIS ",displayName); // uncomment this line to fail test
 		} catch (org.junit.ComparisonFailure cfe) {
-			System.out.println("======JUNIT TEST FAIL======");
-			System.out.println("Exception Message:");
-			System.out.println(cfe.getMessage());
-			System.out.println("+++++++++++++++++++++++++++");
 			throw cfe;
 		} finally {
 			driver.close();
@@ -152,10 +148,6 @@ public class GetDisplayNameUITest {
 			// assertEquals("TM 1 for Team B1 -- FAILTHIS",firstName); //uncomment this line to fail the test
 			
 		} catch (org.junit.ComparisonFailure cfe) {
-			System.out.println("======JUNIT TEST FAIL======");
-			System.out.println("Exception Message:");
-			System.out.println(cfe.getMessage());
-			System.out.println("+++++++++++++++++++++++++++");
 			throw cfe;
 		} finally {
 			driver.close();
@@ -192,10 +184,6 @@ public class GetDisplayNameUITest {
 			// assertEquals("TM 1 for Team B1 -- FAILTHIS",firstName); //uncomment this line to fail the test
 			
 		} catch (org.junit.ComparisonFailure cfe) {
-			System.out.println("======JUNIT TEST FAIL======");
-			System.out.println("Exception Message:");
-			System.out.println(cfe.getMessage());
-			System.out.println("+++++++++++++++++++++++++++");
 			throw cfe;
 		} finally {
 			driver.close();
