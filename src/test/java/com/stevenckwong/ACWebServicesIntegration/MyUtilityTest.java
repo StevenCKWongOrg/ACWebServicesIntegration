@@ -11,7 +11,7 @@ import com.rallydev.rest.RallyRestApi;
 public class MyUtilityTest {
 
 	@Test
-	public void test() {
+	public void test1() {
 		// fail("Not yet implemented");
 		
 		try {
@@ -22,6 +22,30 @@ public class MyUtilityTest {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	public void test2() {
+		// fail("Not yet implemented");
+		
+		try {
+			testGetFirstName();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}	
+
+	@Test
+	public void test3() {
+		// fail("Not yet implemented");
+		
+		try {
+			testGetLastName();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}		
 	
 	private void testGetDisplayName() throws Exception {
 		
@@ -49,6 +73,21 @@ public class MyUtilityTest {
 		String firstName = myUtil.parseJSONResultForFirstName(result);
 		
 		Assert.assertEquals("Allan", firstName);
+		
+	}
+	
+	private void testGetLastName() throws Exception {
+		
+		// TODO: hardcoded data - to be replaced with dynamic data read from file later.
+		String username = "tm1-a1@stevenckwong.com";
+		String apikey = "_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM";
+		
+		MyUtility myUtil = new MyUtility();
+		
+		String result = myUtil.queryForUserDetails(apikey, username);
+		String lastName = myUtil.parseJSONResultForLastName(result);
+		
+		Assert.assertEquals("Allan", lastName);
 		
 	}
 		

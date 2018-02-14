@@ -74,12 +74,16 @@ public class GetDisplayNameServlet extends HttpServlet {
 		// String jsonResult = result;
 		String displayName = "";
 		String firstName = "";
+		String lastName = "";
+		
 		// String lastName = "";
 		// String displayNameJSON = "";
 		
 		if (authenticated) {
 			displayName = myUtil.parseJSONResultForDisplayName(result);
 			firstName = myUtil.parseJSONResultForFirstName(result);
+			lastName = myUtil.parseJSONResultForLastName(result);
+			
 			// lastName = myUtil.parseJSONResultForLastName(result);
 			
 			// displayNameJSON = myUtil.parseJSONResultForDisplayName(jsonResult);
@@ -87,6 +91,7 @@ public class GetDisplayNameServlet extends HttpServlet {
 		} else {
 			displayName = "unauthenticated";
 			firstName = "unauthenticated";
+			lastName = "unauthenticated";
 			// lastName = "unauthenticated";
 		}
 		
@@ -99,20 +104,23 @@ public class GetDisplayNameServlet extends HttpServlet {
 			response.getWriter().append("<h1>User does not exist</h1>\n");
 			displayName = "NotFound";
 			firstName = "NotFound";
+			lastName = "NotFound";
 		} else if (displayName.equals("unauthenticated")) {
 			response.getWriter().append("<h1>API Key is not valid</h1>\n");
 			displayName = "unauthenticated";
 			firstName = "unauthenticated";
+			lastName = "unauthenticated";
 		}
 		else {
 			response.getWriter().append("<h1>Display Name is " + displayName + "</h1>\n");
 			// response.getWriter().append("<h1>Display Name (using JSON Parser) is " + displayNameJSON + "</h1>\n");
 			response.getWriter().append("<h1>First Name is " + firstName + "</h1>\n");
-			// response.getWriter().append("<h1>Last Name is " + lastName + "</h1>\n");
+			response.getWriter().append("<h1>Last Name is " + lastName + "</h1>\n");
 		}
 
 		response.getWriter().append("<input type=\"hidden\" id=\"displayName\" value=\"" + displayName + "\" />");
 		response.getWriter().append("<input type=\"hidden\" id=\"firstName\" value=\"" + firstName + "\" />");
+		response.getWriter().append("<input type=\"hidden\" id=\"lastName\" value=\"" + lastName + "\" />");
 
 		response.getWriter().append("<br><br>Watch this space... we are rolling out more features soon...<br><br>");
 
