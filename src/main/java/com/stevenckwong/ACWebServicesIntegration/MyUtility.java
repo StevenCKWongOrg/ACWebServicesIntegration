@@ -31,6 +31,9 @@ public class MyUtility {
 		
 		try {
 			JSONArray jsonArr = jsonQueryResult.getJSONArray("Results");
+			if (jsonArr.optJSONObject(0)==null) {
+				return "0";
+			}
 			displayName = jsonArr.optJSONObject(0).optString("_refObjectName");
 			
 		} catch (JSONException je) {
@@ -47,6 +50,9 @@ public class MyUtility {
 		
 		try {
 			JSONArray jsonArr = jsonQueryResult.getJSONArray("Results");
+			if (jsonArr.optJSONObject(0)==null) {
+				return "0";
+			}
 			firstName = jsonArr.optJSONObject(0).optString("FirstName");
 			
 		} catch (JSONException je) {
@@ -63,6 +69,9 @@ public class MyUtility {
 		
 		try {
 			JSONArray jsonArr = jsonQueryResult.getJSONArray("Results");
+			if (jsonArr.optJSONObject(0)==null) {
+				return "0";
+			}
 			lastName = jsonArr.optJSONObject(0).optString("LastName");
 			
 		} catch (JSONException je) {

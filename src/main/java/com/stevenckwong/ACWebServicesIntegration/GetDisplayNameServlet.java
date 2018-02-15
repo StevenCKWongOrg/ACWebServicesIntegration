@@ -95,12 +95,20 @@ public class GetDisplayNameServlet extends HttpServlet {
 			// lastName = "unauthenticated";
 		}
 		
+		boolean noResults = false;
+		String bUserDoesNotExist = "false";
+		
+		if (displayName.contentEquals("0") || firstName.contentEquals("0") || lastName.contentEquals("0")) {
+			noResults = true;
+			bUserDoesNotExist = "true";
+		}
+		
 		// rally.close();
 		
 		response.getWriter().append("<html><head><title>Agile Central Get Display Name Service</title></head><body>");
 		
 		// Added code to handle a username that does not exist.
-		if (displayName.equals("_rallyAPIMajor")) {
+		if (noResults) {
 			response.getWriter().append("<h1>User does not exist</h1>\n");
 			displayName = "NotFound";
 			firstName = "NotFound";
@@ -121,6 +129,7 @@ public class GetDisplayNameServlet extends HttpServlet {
 		response.getWriter().append("<input type=\"hidden\" id=\"displayName\" value=\"" + displayName + "\" />");
 		response.getWriter().append("<input type=\"hidden\" id=\"firstName\" value=\"" + firstName + "\" />");
 		response.getWriter().append("<input type=\"hidden\" id=\"lastName\" value=\"" + lastName + "\" />");
+		response.getWriter().append("<input type=\"hidden\" id=\"userDoesNotExist\" value=\"" + bUserDoesNotExist + "\" />");
 
 		response.getWriter().append("<br><br>Watch this space... we are rolling out more features soon...<br><br>");
 
