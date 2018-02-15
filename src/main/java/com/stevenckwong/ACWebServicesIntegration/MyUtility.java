@@ -22,6 +22,23 @@ public class MyUtility {
 		return displayName;
 	}
 	
+	public int parseJSONResultForTotalResultsCount(String result) {
+		int totalResultCount = 0;
+		
+		JSONObject jObj = new JSONObject(result);
+		JSONObject jsonQueryResult = jObj.getJSONObject("QueryResult"); 
+
+		String strResultCount = jsonQueryResult.optString("TotalResultCount");
+		if (strResultCount==null) {
+			totalResultCount = 0;
+		} else {
+			totalResultCount = Integer.parseInt(strResultCount);
+		}
+		
+		return totalResultCount;
+	}
+	
+	
 	// This method uses the JSON libraries to get the DisplayName from the JSON result
 	// retrieved from Rally.
 	public String parseJSONResultForDisplayName(String result) {

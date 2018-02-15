@@ -62,10 +62,12 @@ public class GetDisplayNameServlet extends HttpServlet {
 		
 		boolean authenticated = true;
 		String result = new String();
+		int totalResultCount = 0;
 		
 		try {
 			// result = myUtil.queryForDisplayName(apikey, username);
 			result = myUtil.queryForUserDetails(apikey, username);
+			totalResultCount = myUtil.parseJSONResultForTotalResultsCount(result);
 		}
 		catch (ACWebServicesException ace) {
 			authenticated = false;
@@ -98,10 +100,12 @@ public class GetDisplayNameServlet extends HttpServlet {
 		boolean noResults = false;
 		String bUserDoesNotExist = "false";
 		
-		if (displayName.contentEquals("0") || firstName.contentEquals("0") || lastName.contentEquals("0")) {
+		// if (displayName.contentEquals("0") || firstName.contentEquals("0") || lastName.contentEquals("0")) {
+		if (totalResultCount==0) {
 			noResults = true;
 			bUserDoesNotExist = "true";
-		}
+		} 
+		
 		
 		// rally.close();
 		
