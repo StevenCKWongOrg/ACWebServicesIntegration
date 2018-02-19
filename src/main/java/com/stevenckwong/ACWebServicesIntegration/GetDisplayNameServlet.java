@@ -1,6 +1,8 @@
 package com.stevenckwong.ACWebServicesIntegration;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -62,7 +64,8 @@ public class GetDisplayNameServlet extends HttpServlet {
 		
 		boolean authenticated = true;
 		String result = new String();
-		int totalResultCount = 0;
+		int totalResultCount = -1; // changed this to -1 as a zero value will cause all errors to be reported as User Not Found. 
+		// TODO: Fix the above approach to track user not found.
 		
 		try {
 			// result = myUtil.queryForDisplayName(apikey, username);
@@ -118,10 +121,29 @@ public class GetDisplayNameServlet extends HttpServlet {
 			firstName = "NotFound";
 			lastName = "NotFound";
 		} else if (displayName.equals("unauthenticated")) {
+			/*
 			response.getWriter().append("<h1>API Key is not valid</h1>\n");
 			displayName = "unauthenticated";
 			firstName = "unauthenticated";
 			lastName = "unauthenticated";
+			*/
+			
+			RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
+			request.setAttribute("ErrorTitle","API Key is not valid");
+			StringBuffer errorDetailedMessage = new StringBuffer();
+			
+			errorDetailedMessage.append("The API Key you provided to make this request is invalid.<br><br>");
+			errorDetailedMessage.append("API Key Provided is: <br>" + apikey + "<br><br>");
+			errorDetailedMessage.append("You can get your API Key by clicking <a href=\"https://rally1.rallydev.com/login\" target=\"_blank\">here</a><br><br><br>");
+			
+			request.setAttribute("ErrorDetailedMessage", errorDetailedMessage.toString());
+			
+			displayName = "unauthenticated";
+			firstName = "unauthenticated";
+			lastName = "unauthenticated";
+			
+			rd.forward(request, response);
+			
 		}
 		else {
 			response.getWriter().append("<h1>Display Name is " + displayName + "</h1>\n");
