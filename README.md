@@ -15,3 +15,5 @@ Use mvn tomcat7:deploy or tomcat7:undeploy to deploy the package to a local tomc
 Remember to add the server definition in %MAVEN_HOME%/conf/settings.xml file.
 This will be executed within pre-integration-test phase of the maven build as well. 
 
+Use mvn integration-test to include UI test based on Selenium
+
