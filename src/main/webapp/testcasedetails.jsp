@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.stevenckwong.ACWebServicesIntegration.dom.RallyTestCase" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,10 +21,21 @@
 				<br>
 			</td>
 		</tr>
-		
-		
 		<tr>
-			<td style="background-color: beige; text-align: left; vertical-align: middle;">
+			<td style="background-color: beige; text-align: center; vertical-align: middle;">
+				<table style="width: 50%; margin-left: auto; margin-right: auto; border-style: ridge; border-width:medium;">
+					<% RallyTestCase tcObject = (RallyTestCase)request.getAttribute("testCaseObject"); %>
+					<tr><td align="right"><b>Object ID:</b> </td><td align="left"><%=tcObject.getObjectID() %></td></tr>
+					<tr><td align="right"><b>Formatted ID:</b> </td><td align="left"><%=tcObject.getFormattedID() %></td></tr>
+					<tr><td align="right"><b>Name:</b> </td><td align="left"><%=tcObject.getName() %></td></tr>
+					<tr><td align="right"><b>Description:</b> </td><td align="left"><%=tcObject.getDescription() %></td></tr>
+					<tr><td align="right"><b>Owner:</b> </td><td align="left"><%=tcObject.getOwner() %></td></tr>
+					<tr><td align="right"><b>Work Product:</b> </td><td align="left"><%=tcObject.getWorkProduct() %></td></tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td style="background-color: pink; text-align: left; vertical-align: middle;">
 			Raw result: <%=(String)request.getAttribute("rawResult") %>
 			</td>
 		</tr>
