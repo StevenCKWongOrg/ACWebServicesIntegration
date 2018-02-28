@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.stevenckwong.ACWebServicesIntegration.dom.RallyTestCase;
+
 /**
  * Servlet implementation class GetTestCaseServlet
  */
@@ -36,16 +38,20 @@ public class GetTestCaseServlet extends HttpServlet {
 		String tcid = (String)request.getParameter("testcaseid");
 		String apikey = (String)request.getParameter("apikey");
 		String result = "No Result";
-				
+		RallyTestCase tcObject = new RallyTestCase();
+		
 		MyUtility myUtil = new MyUtility();
 		try {
 			result = myUtil.queryForTestCaseDetails(apikey, tcid);
+			tcObject = new RallyTestCase(result);
+			
 		} catch (ACWebServicesException ace) {
 			result = ace.getErrorMessage();
 		}
 		
 		request.setAttribute("testcaseid", tcid);
 		request.setAttribute("apikey", apikey);
+		request.setAttribute("testCaseObject", tcObject);
 		request.setAttribute("rawResult", result);
 		
 		request.getRequestDispatcher("testcasedetails.jsp").forward(request, response);
