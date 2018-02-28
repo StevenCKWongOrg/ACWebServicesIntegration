@@ -5,7 +5,6 @@
 </head>
 <body>
 <div style="text-align: center">
-<form method=POST action="GetDisplayNameServlet">
 
 <h1>Get Rally Display Name Service</h1>
 <h3>1. Enter the username that you are trying to lookup</h3>
@@ -14,20 +13,32 @@
 
 <table style="width:70%;background-color: beige; border-style: ridge; border-width:medium; margin-left: auto; margin-right:auto">
 <tr><td><center><br>
+<form name="DisplayNameForm" method=POST action="GetDisplayNameServlet">
 Enter Username: <input type="text" name="username" value="stevenck.wong@acme.com" size="40"/> <br>
 <br>
-Enter API Key: <input type="text" name="apikey" value="_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM" size="40"/> <br>
+Enter API Key: <input type="text" name="apikey" value="_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM" size="40" onblur="document.TestCaseForm.apikey.value=this.value;" /> <br>
 <br>
-
 <input type="Submit" value="Get Display Name" id="getDisplayNameButton" /><br>
+</form>
+<br>
+<form name="TestCaseForm" method="POST" action="GetTestCaseServlet">
+<br>
+<input type="hidden" name="apikey" value="_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM" size="40"/> <br>
+Enter Test Case ID: <input type="text" name="testcaseid" value="TC50" size="20" /> <br>
+<br>
+<input type="Submit" value="Get Test Case Details" id="getTestCaseDetailsButton" /><br>
+</form>
+
 <br>
 </center>
 </td></tr>
 </table>
+
+
 <br><br>
 <i>Last Updated: 8-February-2018</i>
 </div>
 
-</form>
+
 </body>
 </html>

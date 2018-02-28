@@ -10,8 +10,18 @@
   	<description></description>
   	<servlet-class>com.stevenckwong.ACWebServicesIntegration.GetDisplayNameServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>GetTestCaseServlet</servlet-name>
+  	<display-name>GetTestCaseServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.stevenckwong.ACWebServicesIntegration.GetTestCaseServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>GetDisplayNameServlet</servlet-name>
   	<url-pattern>/GetDisplayNameServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>GetTestCaseServlet</servlet-name>
+  	<url-pattern>/GetTestCaseServlet</url-pattern>
   </servlet-mapping>
 </web-app>
