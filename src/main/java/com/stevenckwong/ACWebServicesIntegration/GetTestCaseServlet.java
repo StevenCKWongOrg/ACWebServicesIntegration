@@ -36,7 +36,7 @@ public class GetTestCaseServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String tcid = (String)request.getParameter("testcaseid");
-		String apikey = (String)request.getParameter("apikey");
+		String apikey = (String)request.getParameter("apikeyForTC");
 		String result = "No Result";
 		RallyTestCase tcObject = new RallyTestCase();
 		

@@ -5,11 +5,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.rallydev.rest.RallyRestApi;
+import com.stevenckwong.ACWebServicesIntegration.*;
+import com.stevenckwong.ACWebServicesIntegration.dom.*;
 
 // import junit.framework.Assert;
 
 public class MyUtilityTest {
-
+	
 	@Test
 	public void test1() {
 		// fail("Not yet implemented");
@@ -47,11 +49,27 @@ public class MyUtilityTest {
 		}
 	}		
 	
+	
+	@Test
+	public void test4() {
+		// fail("Not yet implemented");
+		
+		try {
+			testGetTestCaseByID();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}		
+		
+	
 	private void testGetDisplayName() throws Exception {
 		
 		// TODO: hardcoded data - to be replaced with dynamic data read from file later.
+		TestUtility util = new TestUtility();
+		
 		String username = "tm1-a1@stevenckwong.com";
-		String apikey = "_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM";
+		String apikey = util.getTestApiKey();
 		
 		MyUtility myUtil = new MyUtility();
 		
@@ -64,8 +82,10 @@ public class MyUtilityTest {
 	private void testGetFirstName() throws Exception {
 		
 		// TODO: hardcoded data - to be replaced with dynamic data read from file later.
+		TestUtility util = new TestUtility();
+		
 		String username = "tm1-a1@stevenckwong.com";
-		String apikey = "_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM";
+		String apikey = util.getTestApiKey();
 		
 		MyUtility myUtil = new MyUtility();
 		
@@ -79,8 +99,10 @@ public class MyUtilityTest {
 	private void testGetLastName() throws Exception {
 		
 		// TODO: hardcoded data - to be replaced with dynamic data read from file later.
+		TestUtility util = new TestUtility();
+		
 		String username = "tm1-a1@stevenckwong.com";
-		String apikey = "_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM";
+		String apikey = util.getTestApiKey();
 		
 		MyUtility myUtil = new MyUtility();
 		
@@ -88,6 +110,23 @@ public class MyUtilityTest {
 		String lastName = myUtil.parseJSONResultForLastName(result);
 		
 		Assert.assertEquals("TM", lastName);
+		
+	}
+	
+	private void testGetTestCaseByID() throws Exception {
+		TestUtility util = new TestUtility();
+		
+		String tcid = "TC50";
+		String apikey = util.getTestApiKey();
+		
+		MyUtility myUtil = new MyUtility();
+		
+		String result = myUtil.queryForTestCaseDetails(apikey, tcid);
+		
+		RallyTestCase testCaseObject = new RallyTestCase(result);
+		
+		Assert.assertEquals("TC50",testCaseObject.getFormattedID());
+		Assert.assertEquals("Submit valid Test Case ID, get Test Case Details", testCaseObject.getName());
 		
 	}
 		

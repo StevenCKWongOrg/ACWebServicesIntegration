@@ -86,6 +86,7 @@ public class GetDisplayNameUITest {
 		
 		// Parameterizing the location of ChromeDriver as some developers are on Mac and some on Windows
 		
+		/*
 		String chromeDriverLocation = System.getProperty("ChromeDriverLocation");
 		
 		if (chromeDriverLocation==null) {
@@ -98,8 +99,11 @@ public class GetDisplayNameUITest {
 		
 		WebDriver driver = new ChromeDriver();
 		driver.get("http://localhost:8080/ACWebServicesIntegration/index.jsp");
+		*/
 		
-		return driver;
+		TestUtility testUtil = new TestUtility();
+		
+		return testUtil.launchWebDriver();
 	}
 	
 	
