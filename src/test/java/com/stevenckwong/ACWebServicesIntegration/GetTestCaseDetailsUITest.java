@@ -29,7 +29,7 @@ public class GetTestCaseDetailsUITest {
 		
 		WebDriver driver = testUtil.launchWebDriver();
 		
-		String inputTestCaseID = "TC48";
+		String inputTestCaseID = "TC47";
 		
 		driver.get("http://localhost:8080/ACWebServicesIntegration/index.jsp");
 		
