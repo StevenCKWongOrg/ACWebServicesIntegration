@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import com.rallydev.rest.RallyRestApi;
 import org.json.*;
+import com.stevenckwong.ACWebServicesIntegration.dom.*;
 
 public class MyUtility {
 	
@@ -190,18 +191,12 @@ public class MyUtility {
 	}
 
 	
-	
-	public String logTestRunResult(String testID, String testResult, String buildNumber) {
+	public String logTestRunResult(String testID, RallyTestResult testResult, String buildNumber) {
 		
 		String apiKey = "_CGJbIEnhQDq45u70AWVPFcMsEmGCkO6tZEhYDyg5Dw";
 
-		URI uri = URI.create("https://rally1.rallydev.com");
 		
-		// RallyRestApi rally = new RallyRestApi(uri, username, password);
-		RallyRestApi rally = new RallyRestApi(uri, apiKey);
-		
-//		String QueryString = "(UserName%20%3D%20"+username+")&start=1&pagesize=20";
-//		String queryURL = "/user?query=" + QueryString + "&order=";		
+		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
 
 		try {
 			rally.close();
