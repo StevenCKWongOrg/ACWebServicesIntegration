@@ -121,7 +121,7 @@ public class MyUtilityTest {
 		
 		MyUtility myUtil = new MyUtility();
 		
-		String result = myUtil.queryForTestCaseDetails(apikey, tcid);
+		String result = myUtil.queryForTestCaseDetailsByID(apikey, tcid);
 		
 		RallyTestCase testCaseObject = new RallyTestCase(result);
 		

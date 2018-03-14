@@ -42,7 +42,7 @@ public class GetTestCaseServlet extends HttpServlet {
 		
 		MyUtility myUtil = new MyUtility();
 		try {
-			result = myUtil.queryForTestCaseDetails(apikey, tcid);
+			result = myUtil.queryForTestCaseDetailsByID(apikey, tcid);
 			tcObject = new RallyTestCase(result);
 			
 		} catch (ACWebServicesException ace) {

@@ -165,7 +165,7 @@ public class MyUtility {
 
 	}
 	
-	public String queryForTestCaseDetails(String apiKey, String testCaseID) throws ACWebServicesException {
+	public String queryForTestCaseDetailsByID(String apiKey, String testCaseID) throws ACWebServicesException {
 
 		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
 		
