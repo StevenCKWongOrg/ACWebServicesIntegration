@@ -199,6 +199,9 @@ public class MyUtility {
 		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
 
 		try {
+			
+			// added this. 
+			
 			rally.close();
 		} catch (IOException e) {
 			
