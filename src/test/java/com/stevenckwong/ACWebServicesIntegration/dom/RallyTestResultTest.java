@@ -19,5 +19,22 @@ public class RallyTestResultTest {
 		
 		// fail("Not yet implemented");
 	}
+	
+	@Test
+	public void testGetSetObjectID() {
+		RallyTestResult testObject = new RallyTestResult();
+		try {
+			
+			String objectID = "test123";
+			testObject.setObjectID(objectID);
+			assertEquals(testObject.getObjectID(),objectID);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// fail("Not yet implemented");
+		
+	}
 
 }
