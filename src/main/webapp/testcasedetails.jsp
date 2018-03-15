@@ -22,7 +22,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td style="background-color: blue; text-align: center; vertical-align: middle;">
+			<td style="background-color: beige; text-align: center; vertical-align: middle;">
 				<table style="width: 50%; margin-left: auto; margin-right: auto; border-style: ridge; border-width:medium;">
 					<% RallyTestCase tcObject = (RallyTestCase)request.getAttribute("testCaseObject"); %>
 					<tr><td align="right"><b>Object ID:</b> </td><td align="left"><%=tcObject.getObjectID() %> <input type="hidden" name="tcID" value="<%=tcObject.getObjectID() %>" /></td></tr>
