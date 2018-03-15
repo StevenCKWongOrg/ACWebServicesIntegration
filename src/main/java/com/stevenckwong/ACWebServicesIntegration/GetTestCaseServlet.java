@@ -37,6 +37,8 @@ public class GetTestCaseServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String tcid = (String)request.getParameter("testcaseid");
 		String apikey = (String)request.getParameter("apikeyForTC");
+		
+		String colour = (String)request.getParameter("colour");
 		String result = "No Result";
 		RallyTestCase tcObject = new RallyTestCase();
 		
@@ -53,6 +55,7 @@ public class GetTestCaseServlet extends HttpServlet {
 		request.setAttribute("apikey", apikey);
 		request.setAttribute("testCaseObject", tcObject);
 		request.setAttribute("rawResult", result);
+		request.setAttribute("colour", colour);
 		
 		request.getRequestDispatcher("testcasedetails.jsp").forward(request, response);
 		

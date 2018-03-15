@@ -27,6 +27,7 @@ Enter API Key: <input type="text" name="apikey" value="_fkTPqTeS62D6PfCEbDViMRT2
 Enter Test Case ID: <input type="text" name="testcaseid" value="TC50" size="20" /> <br>
 <br>
 <input type="Submit" value="Get Test Case Details" id="getTestCaseDetailsButton" /><br>
+<input type="text" name="colour" value="blue" />
 </form>
 
 <br>
