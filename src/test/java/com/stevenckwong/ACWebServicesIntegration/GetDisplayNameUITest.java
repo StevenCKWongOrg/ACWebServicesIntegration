@@ -26,7 +26,7 @@ public class GetDisplayNameUITest {
 			e.printStackTrace();
 		} 
 	}
-
+	/*
 	@Test
 	public void testGetFirstName() {
 		// fail("Not yet implemented");
@@ -80,7 +80,7 @@ public class GetDisplayNameUITest {
 			e.printStackTrace();
 		} 
 	}
-	
+	*/
 	private WebDriver launchWebDriver() {
 		// Make sure you run "mvn" with "-DChromeDriverLocation=<actual_chromedriver_location>" 
 		
