@@ -10,10 +10,11 @@
 </head>
 <body>
 	<h1>Agile Central Test Case Details</h1>
+	<input type=hidden name="panelColour" value="<%=(String)request.getAttribute("panelColour") %>" />
 	
 	<table style="width: 70%; margin-left: auto; margin-right: auto; border-style: ridge; border-width:medium;">
 		<tr>
-			<td style="background-color: cyan; text-align: center; vertical-align: middle;">
+			<td style="background-color: <%=(String)request.getAttribute("panelColour") %>; text-align: center; vertical-align: middle;">
 				<h3>Input Parameters</h3>
 				Searching for ID: <%=(String)request.getAttribute("testcaseid") %><br>
 				<br>
@@ -22,7 +23,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td style="background-color: red; text-align: center; vertical-align: middle;">
+			<td style="background-color: <%= (String)request.getAttribute("panelColour") %>; text-align: center; vertical-align: middle;">
 				<table style="width: 50%; margin-left: auto; margin-right: auto; border-style: ridge; border-width:medium;">
 					<% RallyTestCase tcObject = (RallyTestCase)request.getAttribute("testCaseObject"); %>
 					<tr><td align="right"><b>Object ID:</b> </td><td align="left"><%=tcObject.getObjectID() %> <input type="hidden" name="tcID" value="<%=tcObject.getObjectID() %>" /></td></tr>
@@ -35,7 +36,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td style="background-color: pink; text-align: left; vertical-align: middle;">
+			<td style="background-color: <%= (String)request.getAttribute("panelColour") %>; text-align: left; vertical-align: middle;">
 			Raw result: <%=(String)request.getAttribute("rawResult") %>
 			</td>
 		</tr>
