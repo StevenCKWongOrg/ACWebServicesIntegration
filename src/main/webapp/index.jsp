@@ -26,6 +26,21 @@ Enter API Key: <input type="text" name="apikey" value="_fkTPqTeS62D6PfCEbDViMRT2
 <input type="hidden" name="apikeyForTC" value="_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM" size="40"/> <br>
 Enter Test Case ID: <input type="text" name="testcaseid" value="TC50" size="20" /> <br>
 <br>
+Select Test Case Details Panel Colour: 
+	<select name="panelColour">
+		<option value="aqua">Aqua</option>
+		<option value="blue">Blue</option>
+		<option value="beige" selected>Beige</option>
+		<option value="cornsilk">Corn Silk</option>
+		<option value="floralwhite">Floral White</option>
+		<option value="greenyellow">Green Yellow</option>
+		<option value="hotpink">Hot Pink</option>
+		<option value="lightpink">Light Pink</option>
+		<option value="plum">Plum</option>
+		<option value="red">Red</option>
+	</select><br>
+<br>
+
 <input type="Submit" value="Get Test Case Details" id="getTestCaseDetailsButton" /><br>
 </form>
 
