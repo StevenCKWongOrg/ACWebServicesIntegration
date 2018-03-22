@@ -110,7 +110,7 @@ public class GetDisplayNameUITest {
 	private void testDisplayName() throws InterruptedException {
 		
 		WebDriver driver = this.launchWebDriver();
-		driver.get("http://localhost:8080/ACWebServicesIntegration/index.jsp");
+		driver.get("http://localhost:8080/ACWebServicesIntegration/index-getuserdetails.jsp");
 		
 		WebElement usernameBox = driver.findElement(By.name("username"));
 		usernameBox.clear();
@@ -143,7 +143,7 @@ public class GetDisplayNameUITest {
 	private void testFirstName() throws InterruptedException {
 		
 		WebDriver driver = this.launchWebDriver();
-		driver.get("http://localhost:8080/ACWebServicesIntegration/index.jsp");
+		driver.get("http://localhost:8080/ACWebServicesIntegration/index-getuserdetails.jsp");
 		
 		WebElement usernameBox = driver.findElement(By.name("username"));
 		usernameBox.clear();
@@ -179,7 +179,7 @@ public class GetDisplayNameUITest {
 	private void testLastName() throws InterruptedException {
 		
 		WebDriver driver = this.launchWebDriver();
-		driver.get("http://localhost:8080/ACWebServicesIntegration/index.jsp");
+		driver.get("http://localhost:8080/ACWebServicesIntegration/index-getuserdetails.jsp");
 		
 		WebElement usernameBox = driver.findElement(By.name("username"));
 		usernameBox.clear();
@@ -215,7 +215,7 @@ public class GetDisplayNameUITest {
 	private void testUserDoesNotExist() throws InterruptedException {
 		
 		WebDriver driver = this.launchWebDriver();
-		driver.get("http://localhost:8080/ACWebServicesIntegration/index.jsp");
+		driver.get("http://localhost:8080/ACWebServicesIntegration/index-getuserdetails.jsp");
 		
 		WebElement usernameBox = driver.findElement(By.name("username"));
 		usernameBox.clear();

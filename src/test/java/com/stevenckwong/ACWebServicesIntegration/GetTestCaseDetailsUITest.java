@@ -36,7 +36,7 @@ public class GetTestCaseDetailsUITest {
 		String inputTestCaseID = "TC47";
 		String inputColour = "hotpink";
 		
-		driver.get("http://localhost:8080/ACWebServicesIntegration/index.jsp");
+		driver.get("http://localhost:8080/ACWebServicesIntegration/index-gettestcasedetails.jsp");
 		
 		WebElement testCaseIDBox = driver.findElement(By.name("testcaseid"));
 		testCaseIDBox.clear();
