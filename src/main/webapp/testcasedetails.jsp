@@ -9,6 +9,8 @@
 <title>Agile Central Get Test Case Details</title>
 </head>
 <body>
+	<a href="index.jsp">Back to Main Page</a><br>
+	<a href="index-gettestcasedetails.jsp">Back to Get Test Case page</a><br>
 	<h1>Agile Central Test Case Details</h1>
 	<input type=hidden name="panelColour" value="<%=(String)request.getAttribute("panelColour") %>" />
 	
@@ -41,6 +43,7 @@
 			</td>
 		</tr>
 	</table>
-	
+	<a href="index.jsp">Back to Main Page</a><br>
+	<a href="index-gettestcasedetails.jsp">Back to Get Test Case page</a><br>
 </body>
 </html>
