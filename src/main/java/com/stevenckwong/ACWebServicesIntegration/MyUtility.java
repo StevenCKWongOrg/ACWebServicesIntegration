@@ -1,7 +1,11 @@
 package com.stevenckwong.ACWebServicesIntegration;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+
 import com.rallydev.rest.RallyRestApi;
 import org.json.*;
 import com.stevenckwong.ACWebServicesIntegration.dom.*;
@@ -213,4 +217,68 @@ public class MyUtility {
 		
 		return "Success";
 	}
+
+	
+	public ArrayList<RallyTimebox> queryTimeboxes(String apiKey, String projectName, String timeboxType) throws ACWebServicesException {
+		
+		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
+		ArrayList<RallyTimebox> rallyTimeboxes = new ArrayList<RallyTimebox>();
+		String result = new String();			
+		String finalQueryString = new String();
+		
+		
+		// boolean authenticated = true;
+		try {
+			String queryString = "(Project.Name = \""+projectName+"\")";
+			String queryURL = "/" + timeboxType + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";	
+			finalQueryString = queryURL;
+			
+			result = rally.getClient().doGet(queryURL);
+			JSONObject jsonResult = new JSONObject(result);
+			JSONObject jsonQueryResult = jsonResult.getJSONObject("QueryResult");
+			
+			int resultCount = jsonQueryResult.optInt("TotalResultCount");
+			if (resultCount==0) {
+				RallyTimebox timeboxObject = new RallyTimebox();
+				rallyTimeboxes.add(timeboxObject);
+				return rallyTimeboxes;
+			}
+			
+			try {
+				JSONArray jsonArr = jsonQueryResult.getJSONArray("Results");
+				for (int i=0; i<resultCount; i++) {
+					JSONObject jsonTimebox = jsonArr.getJSONObject(i);
+					RallyTimebox timeboxObject = new RallyTimebox(timeboxType, jsonTimebox);
+					rallyTimeboxes.add(timeboxObject);
+				}
+				
+			return rallyTimeboxes;
+			
+			} catch (JSONException je) {
+				String err = je.getMessage();
+				ACWebServicesException ace = new ACWebServicesException(je);
+				ace.setErrorMessage("JSONException encountered. Original Error Message: " + err);
+				throw ace;
+			}
+			
+		} catch (java.io.IOException ioe) {
+			String err = ioe.getMessage();
+			result = err;
+			// Full error message should be: HTTP/1.1 401 Full authentication is required to access this resource
+			if (err.contains("401")) {
+				ACWebServicesException ace = new ACWebServicesException(ioe);
+				ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
+				throw ace;
+			//	authenticated = false;
+			} else {
+				ACWebServicesException ace = new ACWebServicesException(ioe);
+				ace.setErrorMessage("IOException encountered. QueryURL = " + finalQueryString + "<br>Original Error Message: " + err);
+				throw ace;
+			}
+		}
+		
+		// return rallyTimeboxes;
+
+	}	
+	
 }
