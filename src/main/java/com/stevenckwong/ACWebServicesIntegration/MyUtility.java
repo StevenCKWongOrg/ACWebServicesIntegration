@@ -194,6 +194,51 @@ public class MyUtility {
 		return jsonTestCaseDetails;
 	}
 
+	public String queryForTestCaseDetailsByName(String apiKey, String testCaseName) throws ACWebServicesException {
+
+		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
+		String jsonTestCaseDetails = new String();
+		String finalQueryString = new String();
+		
+		try {
+			String queryString = "(Name contains \""+testCaseName+"\")&fetch=true&start=1&pagesize=20";
+			String queryURL = "/testcase?query=" + URLEncoder.encode(queryString,"UTF-8") + "&order=";	
+			finalQueryString = queryURL;
+			
+			// boolean authenticated = true;
+			try {
+				jsonTestCaseDetails = rally.getClient().doGet(queryURL);
+			} catch (java.io.IOException ioe) {
+				String err = ioe.getMessage();
+				jsonTestCaseDetails = err;
+				// Full error message should be: HTTP/1.1 401 Full authentication is required to access this resource
+				if (err.contains("401")) {
+					ACWebServicesException ace = new ACWebServicesException(ioe);
+					ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
+					throw ace;
+				//	authenticated = false;
+				}
+			}
+			
+			return jsonTestCaseDetails;
+			
+		} catch (java.io.IOException ioe) {
+			String err = ioe.getMessage();
+			jsonTestCaseDetails = err;
+			// Full error message should be: HTTP/1.1 401 Full authentication is required to access this resource
+			if (err.contains("401")) {
+				ACWebServicesException ace = new ACWebServicesException(ioe);
+				ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
+				throw ace;
+			//	authenticated = false;
+			} else {
+				ACWebServicesException ace = new ACWebServicesException(ioe);
+				ace.setErrorMessage("IOException encountered. QueryURL = " + finalQueryString + "<br>Original Error Message: " + err);
+				throw ace;
+			}
+		}
+
+	}
 	
 	public String logTestRunResult(String testID, RallyTestResult testResult, String buildNumber) {
 		

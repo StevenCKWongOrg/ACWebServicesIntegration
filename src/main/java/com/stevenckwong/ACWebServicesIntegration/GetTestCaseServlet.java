@@ -36,6 +36,7 @@ public class GetTestCaseServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String tcid = (String)request.getParameter("testcaseid");
+		String tcName = (String)request.getParameter("testcasename");
 		String apikey = (String)request.getParameter("apikeyForTC");
 		String panelColour = (String)request.getParameter("panelColour");
 		
@@ -44,7 +45,19 @@ public class GetTestCaseServlet extends HttpServlet {
 		
 		MyUtility myUtil = new MyUtility();
 		try {
-			result = myUtil.queryForTestCaseDetailsByID(apikey, tcid);
+			// check which Get Test Case button is clicked...
+			
+			if (request.getParameter("getTestCaseDetailsByIDButton")!=null) {
+				result = myUtil.queryForTestCaseDetailsByID(apikey, tcid);
+			} else if (request.getParameter("getTestCaseDetailsByNameButton")!=null) {
+				result = myUtil.queryForTestCaseDetailsByName(apikey, tcName);
+			} else {
+				// a dummy search - Tech Debt here that needs to be cleaned up later
+				// This case shouldn't run at all.
+				result = myUtil.queryForTestCaseDetailsByID(apikey, "TC0");
+			}
+				
+			
 			tcObject = new RallyTestCase(result);
 			
 		} catch (ACWebServicesException ace) {

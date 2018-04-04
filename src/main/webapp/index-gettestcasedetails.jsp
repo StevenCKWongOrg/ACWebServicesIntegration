@@ -15,9 +15,6 @@
 <tr><td><center><br>
 <form name="TestCaseForm" method="POST" action="GetTestCaseServlet">
 <br>
-<input type="hidden" name="apikeyForTC" value="_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM" size="40"/> <br>
-Enter Test Case ID: <input type="text" name="testcaseid" value="TC50" size="20" /> <br>
-<br>
 Select Test Case Details Panel Colour: 
 	<select name="panelColour">
 		<option value="aqua">Aqua</option>
@@ -32,7 +29,11 @@ Select Test Case Details Panel Colour:
 		<option value="red">Red</option>
 	</select><br>
 <br>
-<input type="Submit" value="Get Test Case Details" id="getTestCaseDetailsButton" /><br>
+<input type="hidden" name="apikeyForTC" value="_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM" size="40"/> <br>
+Enter Test Case ID: <input type="text" name="testcaseid" value="TC50" size="20" /> <input type="Submit" value="Get Test Case Details" id="getTestCaseDetailsByIDButton" name="getTestCaseDetailsByIDButton" /><br> <br>
+<br>
+
+Enter Test Name: <input type="text" name="testcasename" value="Test Get First Name - User Exists" size="50" /> <input type="Submit" value="Get Test Case by Name" id="getTestCaseDetailsByNameButton" name="getTestCaseDetailsByNameButton" /><br><br>
 </form>
 </center>
 </td></tr>
