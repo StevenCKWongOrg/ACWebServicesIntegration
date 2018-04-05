@@ -45,7 +45,7 @@ public class GetTestCaseDetailsUITest {
 		Select colourSelection = new Select(driver.findElement(By.name("panelColour")));
 		colourSelection.selectByValue(inputColour);
 		
-		WebElement getTestCaseButton = driver.findElement(By.id("getTestCaseDetailsButton"));
+		WebElement getTestCaseButton = driver.findElement(By.id("getTestCaseDetailsByIDButton"));
 		getTestCaseButton.click();
 
 		Thread.sleep(3000);

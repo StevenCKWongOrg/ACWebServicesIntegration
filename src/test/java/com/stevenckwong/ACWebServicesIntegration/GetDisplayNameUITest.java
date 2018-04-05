@@ -129,7 +129,7 @@ public class GetDisplayNameUITest {
 		WebElement hiddenDisplayName = driver.findElement(By.id("displayName"));
 		String displayName = hiddenDisplayName.getAttribute("value");
 		try {
-			assertEquals("Training User",displayName);
+			assertEquals("Training User 01",displayName);
 			// assertEquals("I'm Team Member 1 for B1 -- FAILTHIS ",displayName); // uncomment this line to fail test
 		} catch (org.junit.ComparisonFailure cfe) {
 			throw cfe;
