@@ -15,6 +15,11 @@ public class ACWebServicesException extends Exception {
 		this.originalException = e;
 	}
 	
+	public ACWebServicesException() {
+		// TODO Auto-generated constructor stub
+		errorMessage = "uninitialised";
+	}
+
 	public Exception getOriginalException() {
 		return this.originalException;
 	}

@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.stevenckwong.ACWebServicesIntegration.ACWebServicesException;
+
 public class RallyTestCase {
 	
 	private String objectID;
@@ -37,19 +39,41 @@ public class RallyTestCase {
 				description = "no results";		
 				workProduct = "no results";
 			}
+			/*
 			this.setObjectID(jsonArr.optJSONObject(0).optString("ObjectID"));
 			this.setFormattedID(jsonArr.optJSONObject(0).optString("FormattedID"));
 			this.setName(jsonArr.optJSONObject(0).optString("_refObjectName"));
 			this.setDescription(jsonArr.optJSONObject(0).optString("Description"));
 			this.setWorkProduct(jsonArr.optJSONObject(0).getJSONObject("WorkProduct").optString("_refObjectName", "no associated work product"));
 			this.setOwner(jsonArr.optJSONObject(0).getJSONObject("Owner").optString("_refObjectName", "no associated owner"));
+			*/
+
+			JSONObject jsonTestCase = jsonArr.optJSONObject(0);
+			
+			objectID = jsonTestCase.optString("ObjectID");
+			formattedID = jsonTestCase.optString("FormattedID");
+			name = jsonTestCase.optString("_refObjectName");
+			description = jsonTestCase.optString("Description");
+			workProduct = jsonTestCase.getJSONObject("WorkProduct").optString("_refObjectName", "no associated work product");
+			owner = jsonTestCase.getJSONObject("Owner").optString("_refObjectName", "no associated owner");
 			
 		} catch (JSONException je) {
-			objectID = "result parsing error";
-			formattedID = "result parsing error";
-			name = "result parsing error";
-			description = "result parsing error";		
-			workProduct = "result parsing error";
+			objectID = "null";
+			formattedID = "null";
+			name = "null";
+			description = "raw result: " + rallyJSONObject;		
+			workProduct = "null";
+			owner = "null";
+			
+		} catch (NullPointerException ne) {
+			objectID = "null";
+			formattedID = "null";
+			name = "null";
+			description = "raw result: " + rallyJSONObject;		
+			workProduct = "null";
+			owner = "null";
+		} finally {
+			// do nothing.
 		}
 		
 	}

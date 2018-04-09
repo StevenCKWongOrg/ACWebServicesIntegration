@@ -201,8 +201,9 @@ public class MyUtility {
 		String finalQueryString = new String();
 		
 		try {
-			String queryString = "(Name contains \""+testCaseName+"\")&fetch=true&start=1&pagesize=20";
-			String queryURL = "/testcase?query=" + URLEncoder.encode(queryString,"UTF-8") + "&order=";	
+			String queryString = "(Name contains \""+testCaseName+"\")";
+			String queryURL = "/testcase?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";
+			// String queryURL = "/testcase?query=" + queryString + "&order=";
 			finalQueryString = queryURL;
 			
 			// boolean authenticated = true;
