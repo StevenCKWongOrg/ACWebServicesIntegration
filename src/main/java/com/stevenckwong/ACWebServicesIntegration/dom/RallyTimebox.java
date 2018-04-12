@@ -23,8 +23,18 @@ public class RallyTimebox {
 		try {
 			this.type = timeboxType;
 			this.name = json.optString("Name");
-			this.startDate = json.optString("StartDate");
-			this.endDate = json.optString("EndDate");
+			
+			if (timeboxType.equalsIgnoreCase("iteration")) {
+				this.startDate = json.optString("StartDate");
+				this.endDate = json.optString("EndDate");
+			} else if (timeboxType.equals("release")) {
+				this.startDate = json.optString("ReleaseStartDate");
+				this.endDate = json.optString("ReleaseDate");
+			} else {
+				this.startDate = "";
+				this.endDate = "";
+			}
+			
 			
 		} catch (JSONException je) {
 			this.type = "result parsing error";
