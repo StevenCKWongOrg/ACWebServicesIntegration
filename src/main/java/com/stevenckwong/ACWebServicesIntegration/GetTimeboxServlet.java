@@ -56,7 +56,11 @@ public class GetTimeboxServlet extends HttpServlet {
 		
 		MyUtility util = new MyUtility();
 		try {
-			rallyTimeboxes = util.queryTimeboxes(apiKey, projectName, timeboxType);
+			if (timeboxType.equals("milestone")) {
+				rallyTimeboxes = util.queryMilestonesForProject(apiKey, projectName);
+			} else {
+				rallyTimeboxes = util.queryTimeboxes(apiKey, projectName, timeboxType);
+			}
 		} catch (ACWebServicesException e) {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
