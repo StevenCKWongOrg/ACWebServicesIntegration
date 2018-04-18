@@ -131,11 +131,12 @@ public class GetTestCaseServlet extends HttpServlet {
 		
 		request.setAttribute("testcaseid", tcid);
 		request.setAttribute("apikey", apikey);
-		// request.setAttribute("testCaseObject", tcObject);
+		request.setAttribute("testCases", rallyTestCases);
 		request.setAttribute("rawResult", result);
 		request.setAttribute("panelColour", panelColour);
+		request.setAttribute("owner",ownerUsername);
 		
-		request.getRequestDispatcher("testcasedetails.jsp").forward(request, response);
+		request.getRequestDispatcher("testcaselist.jsp").forward(request, response);
 		
 		// response.getWriter().append("Searching for " + tcid + "<br>");
 		// doGet(request, response);	
