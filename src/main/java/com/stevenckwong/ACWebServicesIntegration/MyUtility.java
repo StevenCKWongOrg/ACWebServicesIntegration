@@ -103,6 +103,41 @@ public class MyUtility {
 		return lastName;
 	}	
 	
+	
+	public ArrayList<RallyTestCase> parseJSONResultForListOfTestCases(String json) {
+		
+		ArrayList<RallyTestCase> rallyTestCases = new ArrayList<RallyTestCase>();
+		
+		JSONObject jsonResult = new JSONObject(json);
+		JSONObject jsonQueryResult = jsonResult.getJSONObject("QueryResult");
+
+		int resultCount = jsonQueryResult.optInt("TotalResultCount");
+		if (resultCount==0) {
+			RallyTestCase testCaseObject = new RallyTestCase();
+			rallyTestCases.add(testCaseObject);
+			return rallyTestCases;
+		}
+		
+		try {
+			JSONArray jsonArr = jsonQueryResult.getJSONArray("Results");
+			for (int i=0; i<resultCount; i++) {
+				JSONObject jsonTestCase = jsonArr.getJSONObject(i);
+				RallyTestCase testCaseObject = new RallyTestCase(jsonTestCase);
+				rallyTestCases.add(testCaseObject);
+				}
+			
+			} catch (JSONException je) {
+				RallyTestCase testCaseObkect = new RallyTestCase();
+				rallyTestCases.add(testCaseObkect);
+				return rallyTestCases;
+			}
+			
+		return rallyTestCases;	
+		
+	}
+	
+	
+	
 	// This method parses the Rally result from logging in and returns the First name field
 	public String parseResultForFirstName(String result) {
 		return "Stubbed First Name";
@@ -385,6 +420,52 @@ public class MyUtility {
 		}
 		
 		// return rallyTimeboxes;
+	
+	}
+	public String queryForTestCasesByOwnerUsername(String apiKey, String username) throws ACWebServicesException {
+	
+		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
+		String jsonTestCaseDetails = new String();
+		String finalQueryString = new String();
+		
+		try {
+			String queryString = "(Owner.UserName = \""+username+"\")";
+			String queryURL = "/testcase?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";
+			// String queryURL = "/testcase?query=" + queryString + "&order=";
+			finalQueryString = queryURL;
+			
+			// boolean authenticated = true;
+			try {
+				jsonTestCaseDetails = rally.getClient().doGet(queryURL);
+			} catch (java.io.IOException ioe) {
+				String err = ioe.getMessage();
+				jsonTestCaseDetails = err;
+				// Full error message should be: HTTP/1.1 401 Full authentication is required to access this resource
+				if (err.contains("401")) {
+					ACWebServicesException ace = new ACWebServicesException(ioe);
+					ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
+					throw ace;
+				//	authenticated = false;
+				}
+			}
+			
+			return jsonTestCaseDetails;
+			
+		} catch (java.io.IOException ioe) {
+			String err = ioe.getMessage();
+			jsonTestCaseDetails = err;
+			// Full error message should be: HTTP/1.1 401 Full authentication is required to access this resource
+			if (err.contains("401")) {
+				ACWebServicesException ace = new ACWebServicesException(ioe);
+				ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
+				throw ace;
+			//	authenticated = false;
+			} else {
+				ACWebServicesException ace = new ACWebServicesException(ioe);
+				ace.setErrorMessage("IOException encountered. QueryURL = " + finalQueryString + "<br>Original Error Message: " + err);
+				throw ace;
+			}
+		}
 	
 	}	
 	
