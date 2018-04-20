@@ -40,6 +40,7 @@ public class GetTimeboxServlet extends HttpServlet {
 		String apiKey = request.getParameter("apikey");
 		String projectName = request.getParameter("projectName");
 		String timeboxType = request.getParameter("timeboxType");
+		
 		ArrayList<RallyTimebox> rallyTimeboxes = new ArrayList<RallyTimebox>();
 		RallyTimebox dummyTimebox = new RallyTimebox();
 		dummyTimebox.setType("iteration");

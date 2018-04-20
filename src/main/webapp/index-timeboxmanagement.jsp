@@ -14,6 +14,20 @@
 <tr><td><center><br>
 <form name="TimeboxForm" method="POST" action="GetTimeboxServlet">
 <br>
+Select Timebox Results Panel Colour: 
+	<select name="panelColour">
+		<option value="aqua">Aqua</option>
+		<option value="blue">Blue</option>
+		<option value="beige" selected>Beige</option>
+		<option value="cornsilk">Corn Silk</option>
+		<option value="floralwhite">Floral White</option>
+		<option value="greenyellow">Green Yellow</option>
+		<option value="hotpink">Hot Pink</option>
+		<option value="lightpink">Light Pink</option>
+		<option value="plum">Plum</option>
+		<option value="red">Red</option>
+	</select><br>
+<br>
 <input type="hidden" name="apikey" value="_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM" size="40"/> <br>
 Specify Project Name: <input type=text name="projectName" value="AC Web Services" /><br>
 <br>

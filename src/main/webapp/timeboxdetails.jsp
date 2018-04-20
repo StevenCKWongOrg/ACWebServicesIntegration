@@ -9,8 +9,22 @@
 </head>
 <body>
 <h1>We found the following timeboxes for Project <%= request.getAttribute("projectName") %></h1>
-<table>
-<tr><td>Type</td><td>Name</td><td>Start Date</td><td>End Date</td></tr>
+
+<table style="width: 70%; margin-left: auto; margin-right: auto; border-style: ridge; border-width:medium;">
+	<tr>
+		<td>Timebox Type</td>
+		<td>Timebox Name</td>
+	</tr>
+	<tr>
+		<td colspan=2 style="background-color: <%=(String)request.getAttribute("panelColour") %>; text-align: center; vertical-align: middle;">
+			<h3>Input Parameters</h3>
+			Searching for Timeboxes for Project: <%=(String)request.getAttribute("projectName") %><br>
+			<br>
+			API Key: <%=(String)request.getAttribute("apikey") %><br>
+			<br>
+		</td>
+	</tr>
+	
 <% 
 	ArrayList<RallyTimebox> rallyTimeboxes = (ArrayList<RallyTimebox>)request.getAttribute("RallyTimeboxes"); 
 	if (rallyTimeboxes.size()>0) { 
@@ -19,9 +33,7 @@
 %>
 	<tr>
 		<td><%=eachTimebox.getType() %></td>
-		<td><%=eachTimebox.getName() %></td>
-		<td><%=eachTimebox.getStartDate() %></td>
-		<td><%=eachTimebox.getEndDate() %></td>
+		<td><%=eachTimebox.getName() %> <input type=hidden name="<%=eachTimebox.getName() %>" /></td>
 	</tr>
 <%		
 		}
