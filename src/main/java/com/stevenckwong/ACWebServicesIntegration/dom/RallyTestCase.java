@@ -78,6 +78,26 @@ public class RallyTestCase {
 		
 	}
 	
+	public RallyTestCase(JSONObject jsonObject) {
+		try {
+			this.objectID = jsonObject.optString("ObjectID");
+			this.formattedID = jsonObject.optString("FormattedID");
+			this.name = jsonObject.optString("Name");
+			this.description = jsonObject.optString("Description");
+			this.workProduct = jsonObject.optJSONObject("WorkProduct").optString("_refObjectName");
+			this.owner = jsonObject.optJSONObject("Owner").optString("_refObjectName");			
+			
+		} catch (JSONException je) {
+			this.objectID = "result parsing error";
+			this.name = "result parsing error";
+			this.formattedID = "result parsing error";		
+			this.description = "result parsing error";
+			this.workProduct = "result parsing error";
+			this.owner = "result parsing error";
+		}
+						
+	}
+	
 	public String getObjectID() {
 		return objectID;
 	}

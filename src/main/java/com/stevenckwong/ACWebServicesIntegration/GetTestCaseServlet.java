@@ -1,6 +1,8 @@
 package com.stevenckwong.ACWebServicesIntegration;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +37,22 @@ public class GetTestCaseServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+			if (request.getParameter("getTestCaseDetailsByIDButton")!=null) {
+				this.processTestCaseDetailsQueries(request, response);
+			} else if (request.getParameter("getTestCaseDetailsByNameButton")!=null) {
+				this.processTestCaseDetailsQueries(request, response);
+			} else if (request.getParameter("getTestCaseByOwnerUserNameButton")!=null) {
+				this.processTestCaseListQueries(request, response);
+			} else {
+				// a dummy search - Tech Debt here that needs to be cleaned up later
+				// This case shouldn't run at all.
+				System.out.println("Error - This is unreachable code");
+			}
+
+	}
+
+	public void processTestCaseDetailsQueries(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String tcid = (String)request.getParameter("testcaseid");
 		String tcName = (String)request.getParameter("testcasename");
 		String apikey = (String)request.getParameter("apikeyForTC");
@@ -44,6 +62,7 @@ public class GetTestCaseServlet extends HttpServlet {
 		RallyTestCase tcObject = new RallyTestCase();
 		
 		MyUtility myUtil = new MyUtility();
+		
 		try {
 			// check which Get Test Case button is clicked...
 			
@@ -73,7 +92,56 @@ public class GetTestCaseServlet extends HttpServlet {
 		request.getRequestDispatcher("testcasedetails.jsp").forward(request, response);
 		
 		// response.getWriter().append("Searching for " + tcid + "<br>");
-		// doGet(request, response);
+		// doGet(request, response);	
+	
 	}
-
+	
+	public void processTestCaseListQueries(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String tcid = (String)request.getParameter("testcaseid");
+		String tcName = (String)request.getParameter("testcasename");
+		String apikey = (String)request.getParameter("apikeyForTC");
+		String panelColour = (String)request.getParameter("panelColour");
+		String ownerUsername = (String)request.getParameter("ownerUsername");
+		
+		String result = "No Result";
+		ArrayList<RallyTestCase> rallyTestCases = new ArrayList<RallyTestCase>();
+		
+		MyUtility myUtil = new MyUtility();
+		
+		try {
+			// check which Get Test Case button is clicked...
+			
+			if (request.getParameter("getTestCaseByOwnerUserNameButton")!=null) {
+				result = myUtil.queryForTestCasesByOwnerUsername(apikey, ownerUsername);
+			} else {
+				// a dummy search - Tech Debt here that needs to be cleaned up later
+				// This case shouldn't run at all.
+				result = myUtil.queryForTestCaseDetailsByID(apikey, "TC0");
+			}
+				
+			int noOfResults = myUtil.parseJSONResultForTotalResultsCount(result);
+			
+			rallyTestCases = myUtil.parseJSONResultForListOfTestCases(result);
+				
+			
+		} catch (ACWebServicesException ace) {
+			result = ace.getErrorMessage();
+		}
+		
+		request.setAttribute("testcaseid", tcid);
+		request.setAttribute("apikey", apikey);
+		request.setAttribute("testCases", rallyTestCases);
+		request.setAttribute("rawResult", result);
+		request.setAttribute("panelColour", panelColour);
+		request.setAttribute("owner",ownerUsername);
+		
+		request.getRequestDispatcher("testcaselist.jsp").forward(request, response);
+		
+		// response.getWriter().append("Searching for " + tcid + "<br>");
+		// doGet(request, response);	
+	
+	}
+	
+	
 }
