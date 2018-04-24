@@ -72,6 +72,7 @@ public class GetTimeboxServlet extends HttpServlet {
 		
 		request.setAttribute("RallyTimeboxes", rallyTimeboxes);
 		request.setAttribute("projectName", projectName);
+		request.setAttribute("apikey", apiKey);
 		request.getRequestDispatcher("timeboxdetails.jsp").forward(request, response);
 		// doGet(request, response);
 	}
