@@ -288,8 +288,8 @@ public class MyUtility {
 		
 		try {
 			String queryString = "(Name contains \""+testCaseName+"\")";
-			String queryURL = "/testcase" + this.getWorkspaceStringForQuery() + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";
-			// String queryURL = "/testcase?query=" + queryString + "&order=";
+			//String queryURL = "/testcase" + this.getWorkspaceStringForQuery() + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";
+			String queryURL = "/testcase?query=" + URLEncoder.encode(queryString,"UTF-8") + "&order=";
 			finalQueryString = queryURL;
 			
 			// boolean authenticated = true;
