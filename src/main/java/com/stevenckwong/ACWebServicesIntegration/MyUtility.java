@@ -239,8 +239,8 @@ public class MyUtility {
 		
 		try {
 			String queryString = "(FormattedID = \""+testCaseID+"\")";
-//			finalQueryString = "/testcase" + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";	
-			finalQueryString = "/testcase" + this.getWorkspaceStringForQuery() + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";	
+			finalQueryString = "/testcase" + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";	
+//			finalQueryString = "/testcase" + this.getWorkspaceStringForQuery() + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";	
 			
 			System.out.println("Query String:" + finalQueryString);
 			
