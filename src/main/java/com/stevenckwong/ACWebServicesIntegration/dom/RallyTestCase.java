@@ -84,8 +84,16 @@ public class RallyTestCase {
 			this.formattedID = jsonObject.optString("FormattedID");
 			this.name = jsonObject.optString("Name");
 			this.description = jsonObject.optString("Description");
-			this.workProduct = jsonObject.optJSONObject("WorkProduct").optString("_refObjectName");
-			this.owner = jsonObject.optJSONObject("Owner").optString("_refObjectName");			
+			if (jsonObject.optJSONObject("WorkProduct") != null) {
+				this.workProduct = jsonObject.optJSONObject("WorkProduct").optString("_refObjectName");
+			} else {
+				this.workProduct = "No Associated Work Product";
+			}
+			if (jsonObject.optJSONObject("Owner") != null) {
+				this.workProduct = jsonObject.optJSONObject("Owner").optString("_refObjectName");
+			} else {
+				this.workProduct = "No Associated Owner";
+			}
 			
 		} catch (JSONException je) {
 			this.objectID = "result parsing error";

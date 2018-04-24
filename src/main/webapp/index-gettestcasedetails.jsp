@@ -29,7 +29,7 @@ Select Test Case Details Panel Colour:
 		<option value="red">Red</option>
 	</select><br>
 <br>
-<input type="hidden" name="apikeyForTC" value="_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM" size="40"/> <br>
+<input type="hidden" name="apikeyForTC" value="_BRkPjjnfSLuH0zxapb2XyJOzETEybERZpsxrZ69OSI" size="40"/> <br>
 Enter Test Case ID: <input type="text" name="testcaseid" value="TC50" size="20" /> <input type="Submit" value="Get Test Case Details" id="getTestCaseDetailsByIDButton" name="getTestCaseDetailsByIDButton" /><br> <br>
 <br>
 

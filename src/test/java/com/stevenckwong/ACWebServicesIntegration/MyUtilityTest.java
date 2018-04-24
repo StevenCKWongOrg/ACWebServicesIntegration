@@ -1,5 +1,7 @@
 package com.stevenckwong.ACWebServicesIntegration;
 
+import java.util.ArrayList;
+
 import org.junit.Assert;
 
 import org.junit.Test;
@@ -122,11 +124,20 @@ public class MyUtilityTest {
 		MyUtility myUtil = new MyUtility();
 		
 		String result = myUtil.queryForTestCaseDetailsByID(apikey, tcid);
+		int noOfTestCases = myUtil.parseJSONResultForTotalResultsCount(result);
 		
-		RallyTestCase testCaseObject = new RallyTestCase(result);
+		if (noOfTestCases > 0) {
+			ArrayList<RallyTestCase> testCasesList = myUtil.parseJSONResultForListOfTestCases(result);
+			RallyTestCase testCaseObject = testCasesList.get(0);
+			
+			Assert.assertEquals("TC50",testCaseObject.getFormattedID());
+			Assert.assertEquals("Submit valid Test Case ID, get Test Case Details", testCaseObject.getName());
+			
+		} else {
+			System.out.println("No Test Cases Found");
+			System.out.println(result);
+		}
 		
-		Assert.assertEquals("TC50",testCaseObject.getFormattedID());
-		Assert.assertEquals("Submit valid Test Case ID, get Test Case Details", testCaseObject.getName());
 		
 	}
 		

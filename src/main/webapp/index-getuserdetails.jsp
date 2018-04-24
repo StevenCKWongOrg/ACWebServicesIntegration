@@ -16,7 +16,7 @@
 <form name="DisplayNameForm" method=POST action="GetDisplayNameServlet">
 Enter Username: <input type="text" name="username" value="stevenck.wong@acme.com" size="40"/> <br>
 <br>
-Enter API Key: <input type="text" name="apikey" value="_fkTPqTeS62D6PfCEbDViMRT2lotBkskiBlxd677GM" size="40" onblur="document.TestCaseForm.apikeyForTC.value=this.value;" /> <br>
+Enter API Key: <input type="text" name="apikey" value="_BRkPjjnfSLuH0zxapb2XyJOzETEybERZpsxrZ69OSI" size="40" onblur="document.TestCaseForm.apikeyForTC.value=this.value;" /> <br>
 <br>
 <input type="Submit" value="Get Display Name" id="getDisplayNameButton" /><br>
 </form>

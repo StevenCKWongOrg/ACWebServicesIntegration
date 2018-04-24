@@ -7,6 +7,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import com.rallydev.rest.RallyRestApi;
+import com.rallydev.rest.client.ApiKeyClient;
+
 import org.json.*;
 import com.stevenckwong.ACWebServicesIntegration.dom.*;
 
@@ -15,6 +17,19 @@ public class MyUtility {
 	public MyUtility() {
 		
 	}
+	
+	public String getWorkspaceStringForQuery() {
+		
+		// Hardcoded for now to go to ACWebServicesIntegration workspace.
+		
+		String workspaceString = "?workspace=https://rally1.rallydev.com/slm/webservice/v2.0/workspace/195835671292";
+		
+		return workspaceString;
+	}
+	
+
+	
+	
 	// This method parses the Rally result from logging in and returns the DisplayName
 	// field.
 	public String parseResultForDisplayName(String result) {
@@ -108,17 +123,17 @@ public class MyUtility {
 		
 		ArrayList<RallyTestCase> rallyTestCases = new ArrayList<RallyTestCase>();
 		
-		JSONObject jsonResult = new JSONObject(json);
-		JSONObject jsonQueryResult = jsonResult.getJSONObject("QueryResult");
-
-		int resultCount = jsonQueryResult.optInt("TotalResultCount");
-		if (resultCount==0) {
+		int resultCount = this.parseJSONResultForTotalResultsCount(json);
+		if (resultCount < 1) {
 			RallyTestCase testCaseObject = new RallyTestCase();
 			rallyTestCases.add(testCaseObject);
 			return rallyTestCases;
 		}
 		
+		
 		try {
+			JSONObject jsonResult = new JSONObject(json);
+			JSONObject jsonQueryResult = jsonResult.getJSONObject("QueryResult");
 			JSONArray jsonArr = jsonQueryResult.getJSONArray("Results");
 			for (int i=0; i<resultCount; i++) {
 				JSONObject jsonTestCase = jsonArr.getJSONObject(i);
@@ -141,6 +156,15 @@ public class MyUtility {
 	// This method parses the Rally result from logging in and returns the First name field
 	public String parseResultForFirstName(String result) {
 		return "Stubbed First Name";
+	}
+	
+	
+	public ApiKeyClient getRallyApiKeyClient(String apiKey) {
+		URI uri = URI.create("https://rally1.rallydev.com");
+		ApiKeyClient rallyApiKeyClient = new ApiKeyClient(uri, apiKey);
+		
+		return rallyApiKeyClient;
+		
 	}
 	
 	
@@ -180,14 +204,16 @@ public class MyUtility {
 	
 	public String queryForUserDetails(String apiKey, String username) throws ACWebServicesException {
 		
-		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
+		// RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
+		ApiKeyClient rally = this.getRallyApiKeyClient(apiKey);
 		
 		String QueryString = "(UserName%20%3D%20"+username+")&fetch=true&start=1&pagesize=20";
 		String queryURL = "/user?query=" + QueryString + "&order=";	
 		String result = new String();
 		// boolean authenticated = true;
 		try {
-			result = rally.getClient().doGet(queryURL);
+			// result = rally.getClient().doGet(queryURL);
+			result = rally.doGet(queryURL);
 		} catch (java.io.IOException ioe) {
 			String err = ioe.getMessage();
 			result = err;
@@ -206,14 +232,35 @@ public class MyUtility {
 	
 	public String queryForTestCaseDetailsByID(String apiKey, String testCaseID) throws ACWebServicesException {
 
-		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
-		
-		String QueryString = "(FormattedID%20%3D%20%22"+testCaseID+"%22)&fetch=true&start=1&pagesize=20";
-		String queryURL = "/testcase?query=" + QueryString + "&order=";	
 		String jsonTestCaseDetails = "";
-		// boolean authenticated = true;
+		String finalQueryString = "";
+		
+		// RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
+		
 		try {
-			jsonTestCaseDetails = rally.getClient().doGet(queryURL);
+			String queryString = "(FormattedID = \""+testCaseID+"\")";
+//			finalQueryString = "/testcase" + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";	
+			finalQueryString = "/testcase" + this.getWorkspaceStringForQuery() + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";	
+			
+			System.out.println("Query String:" + finalQueryString);
+			
+			// boolean authenticated = true;
+			try {
+				// jsonTestCaseDetails = rally.getClient().doGet(finalQueryString);
+				ApiKeyClient rally = this.getRallyApiKeyClient(apiKey);
+				jsonTestCaseDetails = rally.doGet(finalQueryString);
+				
+			} catch (java.io.IOException ioe) {
+				String err = ioe.getMessage();
+				jsonTestCaseDetails = err;
+				// Full error message should be: HTTP/1.1 401 Full authentication is required to access this resource
+				if (err.contains("401")) {
+					ACWebServicesException ace = new ACWebServicesException(ioe);
+					ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
+					throw ace;
+				//	authenticated = false;
+				}
+			}
 		} catch (java.io.IOException ioe) {
 			String err = ioe.getMessage();
 			jsonTestCaseDetails = err;
@@ -223,6 +270,10 @@ public class MyUtility {
 				ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
 				throw ace;
 			//	authenticated = false;
+			} else {
+				ACWebServicesException ace = new ACWebServicesException(ioe);
+				ace.setErrorMessage("IOException encountered. QueryURL = " + finalQueryString + "<br>Original Error Message: " + err);
+				throw ace;
 			}
 		}
 		
@@ -231,19 +282,22 @@ public class MyUtility {
 
 	public String queryForTestCaseDetailsByName(String apiKey, String testCaseName) throws ACWebServicesException {
 
-		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
+		// RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
 		String jsonTestCaseDetails = new String();
 		String finalQueryString = new String();
 		
 		try {
 			String queryString = "(Name contains \""+testCaseName+"\")";
-			String queryURL = "/testcase?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";
+			String queryURL = "/testcase" + this.getWorkspaceStringForQuery() + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";
 			// String queryURL = "/testcase?query=" + queryString + "&order=";
 			finalQueryString = queryURL;
 			
 			// boolean authenticated = true;
 			try {
-				jsonTestCaseDetails = rally.getClient().doGet(queryURL);
+				// jsonTestCaseDetails = rally.getClient().doGet(queryURL);
+				ApiKeyClient rally = this.getRallyApiKeyClient(apiKey);
+				jsonTestCaseDetails = rally.doGet(queryURL);
+				
 			} catch (java.io.IOException ioe) {
 				String err = ioe.getMessage();
 				jsonTestCaseDetails = err;
@@ -424,7 +478,8 @@ public class MyUtility {
 	}
 	public String queryForTestCasesByOwnerUsername(String apiKey, String username) throws ACWebServicesException {
 	
-		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
+		// RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
+		ApiKeyClient rally = this.getRallyApiKeyClient(apiKey);
 		String jsonTestCaseDetails = new String();
 		String finalQueryString = new String();
 		
@@ -436,7 +491,8 @@ public class MyUtility {
 			
 			// boolean authenticated = true;
 			try {
-				jsonTestCaseDetails = rally.getClient().doGet(queryURL);
+				// jsonTestCaseDetails = rally.getClient().doGet(queryURL);
+				jsonTestCaseDetails = rally.doGet(queryURL);
 			} catch (java.io.IOException ioe) {
 				String err = ioe.getMessage();
 				jsonTestCaseDetails = err;
