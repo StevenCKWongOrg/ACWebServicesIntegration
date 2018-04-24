@@ -90,9 +90,9 @@ public class RallyTestCase {
 				this.workProduct = "No Associated Work Product";
 			}
 			if (jsonObject.optJSONObject("Owner") != null) {
-				this.workProduct = jsonObject.optJSONObject("Owner").optString("_refObjectName");
+				this.owner = jsonObject.optJSONObject("Owner").optString("_refObjectName");
 			} else {
-				this.workProduct = "No Associated Owner";
+				this.owner = "No Associated Owner";
 			}
 			
 		} catch (JSONException je) {
