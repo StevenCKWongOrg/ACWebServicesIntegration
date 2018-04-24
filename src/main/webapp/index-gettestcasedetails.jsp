@@ -33,10 +33,12 @@ Select Test Case Details Panel Colour:
 Enter Test Case ID: <input type="text" name="testcaseid" value="TC50" size="20" /> <input type="Submit" value="Get Test Case Details" id="getTestCaseDetailsByIDButton" name="getTestCaseDetailsByIDButton" /><br> <br>
 <br>
 
-Enter Test Name: <input type="text" name="testcasename" value="Test Get First Name - User Exists" size="50" /> <input type="Submit" value="Get Test Case by Name" id="getTestCaseDetailsByNameButton" name="getTestCaseDetailsByNameButton" /><br><br>
+Enter Exact Test Name: <input type="text" name="testcasename" value="Test Get First Name - User Exists" size="50" /> <input type="Submit" value="Get Test Case by Name" id="getTestCaseDetailsByNameButton" name="getTestCaseDetailsByNameButton" /><br><br>
 <br>
 Enter Owner's UserName: <input type="text" name="ownerUsername" value="tm1-a1@stevenckwong.com" size="50" /> <input type="Submit" value="Get Test Case by Owner's Username" id="getTestCaseByOwnerUserNameButton" name="getTestCaseByOwnerUserNameButton" /><br><br>
-
+<br>
+Enter Parts of a Test Name: <input type="text" name="partialtestcasename" value="Test Get" size="50" /> <input type="Submit" value="Get Tests based on Partial Name" id="getTestCaseDetailsByPartialNameButton" name="getTestCaseDetailsByPartialNameButton" /><br><br>
+<br>
 </form>
 </center>
 </td></tr>

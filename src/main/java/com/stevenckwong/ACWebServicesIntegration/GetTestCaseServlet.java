@@ -44,6 +44,8 @@ public class GetTestCaseServlet extends HttpServlet {
 				this.processTestCaseDetailsQueries(request, response);
 			} else if (request.getParameter("getTestCaseByOwnerUserNameButton")!=null) {
 				this.processTestCaseListQueries(request, response);
+			} else if (request.getParameter("getTestCaseDetailsByPartialNameButton") != null) {
+				this.processTestCaseListQueries(request, response);
 			} else {
 				// a dummy search - Tech Debt here that needs to be cleaned up later
 				// This case shouldn't run at all.
@@ -101,6 +103,7 @@ public class GetTestCaseServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String tcid = (String)request.getParameter("testcaseid");
 		String tcName = (String)request.getParameter("testcasename");
+		String partialTCName = (String)request.getParameter("partialtestcasename");
 		String apikey = (String)request.getParameter("apikeyForTC");
 		String panelColour = (String)request.getParameter("panelColour");
 		String ownerUsername = (String)request.getParameter("ownerUsername");
@@ -115,13 +118,17 @@ public class GetTestCaseServlet extends HttpServlet {
 			
 			if (request.getParameter("getTestCaseByOwnerUserNameButton")!=null) {
 				result = myUtil.queryForTestCasesByOwnerUsername(apikey, ownerUsername);
-			} else {
+			} else if (request.getParameter("getTestCaseDetailsByPartialNameButton")!=null) {
+				result = myUtil.queryForTestCaseDetailsByName(apikey, partialTCName);
+			}
+			
+			else {
 				// a dummy search - Tech Debt here that needs to be cleaned up later
 				// This case shouldn't run at all.
 				result = myUtil.queryForTestCaseDetailsByID(apikey, "TC0");
 			}
 				
-			int noOfResults = myUtil.parseJSONResultForTotalResultsCount(result);
+			// int noOfResults = myUtil.parseJSONResultForTotalResultsCount(result);
 			
 			rallyTestCases = myUtil.parseJSONResultForListOfTestCases(result);
 				
