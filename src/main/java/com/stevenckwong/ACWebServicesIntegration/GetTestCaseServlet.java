@@ -75,9 +75,10 @@ public class GetTestCaseServlet extends HttpServlet {
 				// This case shouldn't run at all.
 				result = myUtil.queryForTestCaseDetailsByID(apikey, "TC0");
 			}
-				
 			
-			tcObject = new RallyTestCase(result);
+			ArrayList<RallyTestCase> rallyTestCases = myUtil.parseJSONResultForListOfTestCases(result);
+			
+			tcObject = rallyTestCases.get(0);
 			
 		} catch (ACWebServicesException ace) {
 			result = ace.getErrorMessage();
