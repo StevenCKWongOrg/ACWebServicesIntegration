@@ -329,6 +329,56 @@ public class MyUtility {
 		}
 
 	}
+
+	public String queryForTestCaseListByWorkProductID(String apiKey, String workProductID) throws ACWebServicesException {
+
+		// RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
+		String jsonTestCases = new String();
+		String finalQueryString = new String();
+		
+		try {
+			String queryString = "(WorkProduct.FormattedID = \""+workProductID+"\")";
+			String queryURL = "/testcase?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";
+			// String queryURL = "/testcase?query=" + URLEncoder.encode(queryString,"UTF-8") + "&order=";
+			finalQueryString = queryURL;
+			
+			// boolean authenticated = true;
+			try {
+				// jsonTestCaseDetails = rally.getClient().doGet(queryURL);
+				ApiKeyClient rally = this.getRallyApiKeyClient(apiKey);
+				jsonTestCases = rally.doGet(queryURL);
+				
+			} catch (java.io.IOException ioe) {
+				String err = ioe.getMessage();
+				jsonTestCases = err;
+				// Full error message should be: HTTP/1.1 401 Full authentication is required to access this resource
+				if (err.contains("401")) {
+					ACWebServicesException ace = new ACWebServicesException(ioe);
+					ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
+					throw ace;
+				//	authenticated = false;
+				}
+			}
+			
+			return jsonTestCases;
+			
+		} catch (java.io.IOException ioe) {
+			String err = ioe.getMessage();
+			jsonTestCases = err;
+			// Full error message should be: HTTP/1.1 401 Full authentication is required to access this resource
+			if (err.contains("401")) {
+				ACWebServicesException ace = new ACWebServicesException(ioe);
+				ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
+				throw ace;
+			//	authenticated = false;
+			} else {
+				ACWebServicesException ace = new ACWebServicesException(ioe);
+				ace.setErrorMessage("IOException encountered. QueryURL = " + finalQueryString + "<br>Original Error Message: " + err);
+				throw ace;
+			}
+		}
+
+	}	
 	
 	public String logTestRunResult(String testID, RallyTestResult testResult, String buildNumber) {
 		

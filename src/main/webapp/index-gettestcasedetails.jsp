@@ -39,6 +39,8 @@ Enter Owner's UserName: <input type="text" name="ownerUsername" value="tm1-a1@st
 <br>
 Enter Parts of a Test Name: <input type="text" name="partialtestcasename" value="Test Get" size="50" /> <input type="Submit" value="Get Tests based on Partial Name" id="getTestCaseDetailsByPartialNameButton" name="getTestCaseDetailsByPartialNameButton" /><br><br>
 <br>
+Enter Work Product (User Story) ID: <input type="text" name="workproductid" value="US147" size="50" /> <input type="Submit" value="Get Tests for Work Product" id="getTestCaseListByWorkProductID" name="getTestCaseListByWorkProductID" /><br><br>
+<br>
 </form>
 </center>
 </td></tr>

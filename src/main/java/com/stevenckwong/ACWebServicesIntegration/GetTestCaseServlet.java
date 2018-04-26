@@ -46,6 +46,8 @@ public class GetTestCaseServlet extends HttpServlet {
 				this.processTestCaseListQueries(request, response);
 			} else if (request.getParameter("getTestCaseDetailsByPartialNameButton") != null) {
 				this.processTestCaseListQueries(request, response);
+			} else if (request.getParameter("getTestCaseListByWorkProductID") != null) {
+				this.processTestCaseListQueries(request, response);
 			} else {
 				// a dummy search - Tech Debt here that needs to be cleaned up later
 				// This case shouldn't run at all.
@@ -107,6 +109,7 @@ public class GetTestCaseServlet extends HttpServlet {
 		String apikey = (String)request.getParameter("apikeyForTC");
 		String panelColour = (String)request.getParameter("panelColour");
 		String ownerUsername = (String)request.getParameter("ownerUsername");
+		String workProductID = (String)request.getParameter("workproductid");
 		
 		String result = "No Result";
 		ArrayList<RallyTestCase> rallyTestCases = new ArrayList<RallyTestCase>();
@@ -120,8 +123,9 @@ public class GetTestCaseServlet extends HttpServlet {
 				result = myUtil.queryForTestCasesByOwnerUsername(apikey, ownerUsername);
 			} else if (request.getParameter("getTestCaseDetailsByPartialNameButton")!=null) {
 				result = myUtil.queryForTestCaseDetailsByName(apikey, partialTCName);
+			} else if (request.getParameter("getTestCaseListByWorkProductID")!=null) {
+				result = myUtil.queryForTestCaseListByWorkProductID(apikey, workProductID);
 			}
-			
 			else {
 				// a dummy search - Tech Debt here that needs to be cleaned up later
 				// This case shouldn't run at all.
