@@ -18,6 +18,13 @@ public class RallyTimebox {
 		this.endDate="uninitialised";
 	}
 	
+	public RallyTimebox(String timeboxType) {
+		this.type = timeboxType;
+		this.name = "uninitialised";
+		this.startDate = "uninitialised";
+		this.endDate = "uninitialised";
+	}
+	
 	public RallyTimebox(String timeboxType, JSONObject json) {
 
 		try {

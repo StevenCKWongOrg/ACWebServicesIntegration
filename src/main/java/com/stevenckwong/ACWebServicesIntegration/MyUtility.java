@@ -151,6 +151,75 @@ public class MyUtility {
 		
 	}
 	
+	public ArrayList<RallyTimebox> parseJSONResultForListOfTimeboxes(String json, String timeboxType) {
+		
+		ArrayList<RallyTimebox> rallyTimeboxes = new ArrayList<RallyTimebox>();
+
+		
+		JSONObject jsonResult = new JSONObject(json);
+		JSONObject jsonQueryResult = jsonResult.getJSONObject("QueryResult");
+		
+		int resultCount = parseJSONResultForTotalResultsCount(json);
+		
+		if (resultCount==0) {
+			RallyTimebox timeboxObject = new RallyTimebox();
+			rallyTimeboxes.add(timeboxObject);
+			return rallyTimeboxes;
+		}
+		
+		try {
+			JSONArray jsonArr = jsonQueryResult.getJSONArray("Results");
+			for (int i=0; i<resultCount; i++) {
+				JSONObject jsonTimebox = jsonArr.getJSONObject(i);
+				RallyTimebox timeboxObject = new RallyTimebox(timeboxType, jsonTimebox);
+				rallyTimeboxes.add(timeboxObject);
+			}
+		
+		} catch (JSONException je) {
+			RallyTimebox timeboxObject = new RallyTimebox(timeboxType);
+			timeboxObject.setName(json);
+			rallyTimeboxes.add(timeboxObject);
+			return rallyTimeboxes;
+		}		
+		
+		return rallyTimeboxes;
+		
+	}	
+
+	public ArrayList<RallyTimebox> parseJSONResultForListOfMilestones(String json) {
+		
+		ArrayList<RallyTimebox> rallyTimeboxes = new ArrayList<RallyTimebox>();
+
+		
+		JSONObject jsonResult = new JSONObject(json);
+		JSONObject jsonQueryResult = jsonResult.getJSONObject("QueryResult");
+		
+		int resultCount = this.parseJSONResultForTotalResultsCount(json);
+		if (resultCount==0) {
+			RallyTimebox timeboxObject = new RallyTimebox();
+			rallyTimeboxes.add(timeboxObject);
+			return rallyTimeboxes;
+		}
+		
+		try {
+			JSONArray jsonArr = jsonQueryResult.getJSONArray("Results");
+			for (int i=0; i<resultCount; i++) {
+				JSONObject jsonTimebox = jsonArr.getJSONObject(i);
+				RallyTimebox timeboxObject = new RallyTimebox("milestone", jsonTimebox);
+				rallyTimeboxes.add(timeboxObject);
+			}
+			
+		return rallyTimeboxes;
+		
+		} catch (JSONException je) {
+			RallyTimebox timeboxObject = new RallyTimebox("milestone");
+			timeboxObject.setName(json);
+			rallyTimeboxes.add(timeboxObject);
+			return rallyTimeboxes;
+		}
+		
+		
+	}		
 	
 	
 	// This method parses the Rally result from logging in and returns the First name field
@@ -234,31 +303,24 @@ public class MyUtility {
 
 		String jsonTestCaseDetails = "";
 		String finalQueryString = "";
-		
-		// RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
-		
+				
 		try {
 			String queryString = "(FormattedID = \""+testCaseID+"\")";
 			finalQueryString = "/testcase" + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";	
-//			finalQueryString = "/testcase" + this.getWorkspaceStringForQuery() + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";	
 			
-			System.out.println("Query String:" + finalQueryString);
-			
-			// boolean authenticated = true;
 			try {
-				// jsonTestCaseDetails = rally.getClient().doGet(finalQueryString);
 				ApiKeyClient rally = this.getRallyApiKeyClient(apiKey);
 				jsonTestCaseDetails = rally.doGet(finalQueryString);
 				
 			} catch (java.io.IOException ioe) {
 				String err = ioe.getMessage();
 				jsonTestCaseDetails = err;
+
 				// Full error message should be: HTTP/1.1 401 Full authentication is required to access this resource
 				if (err.contains("401")) {
 					ACWebServicesException ace = new ACWebServicesException(ioe);
 					ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
 					throw ace;
-				//	authenticated = false;
 				}
 			}
 		} catch (java.io.IOException ioe) {
@@ -269,7 +331,6 @@ public class MyUtility {
 				ACWebServicesException ace = new ACWebServicesException(ioe);
 				ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
 				throw ace;
-			//	authenticated = false;
 			} else {
 				ACWebServicesException ace = new ACWebServicesException(ioe);
 				ace.setErrorMessage("IOException encountered. QueryURL = " + finalQueryString + "<br>Original Error Message: " + err);
@@ -289,12 +350,9 @@ public class MyUtility {
 		try {
 			String queryString = "(Name contains \""+testCaseName+"\")";
 			String queryURL = "/testcase?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";
-			// String queryURL = "/testcase?query=" + URLEncoder.encode(queryString,"UTF-8") + "&order=";
 			finalQueryString = queryURL;
 			
-			// boolean authenticated = true;
 			try {
-				// jsonTestCaseDetails = rally.getClient().doGet(queryURL);
 				ApiKeyClient rally = this.getRallyApiKeyClient(apiKey);
 				jsonTestCaseDetails = rally.doGet(queryURL);
 				
@@ -306,7 +364,6 @@ public class MyUtility {
 					ACWebServicesException ace = new ACWebServicesException(ioe);
 					ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
 					throw ace;
-				//	authenticated = false;
 				}
 			}
 			
@@ -320,7 +377,6 @@ public class MyUtility {
 				ACWebServicesException ace = new ACWebServicesException(ioe);
 				ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
 				throw ace;
-			//	authenticated = false;
 			} else {
 				ACWebServicesException ace = new ACWebServicesException(ioe);
 				ace.setErrorMessage("IOException encountered. QueryURL = " + finalQueryString + "<br>Original Error Message: " + err);
@@ -332,19 +388,15 @@ public class MyUtility {
 
 	public String queryForTestCaseListByWorkProductID(String apiKey, String workProductID) throws ACWebServicesException {
 
-		// RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
 		String jsonTestCases = new String();
 		String finalQueryString = new String();
 		
 		try {
 			String queryString = "(WorkProduct.FormattedID = \""+workProductID+"\")";
 			String queryURL = "/testcase?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";
-			// String queryURL = "/testcase?query=" + URLEncoder.encode(queryString,"UTF-8") + "&order=";
 			finalQueryString = queryURL;
 			
-			// boolean authenticated = true;
 			try {
-				// jsonTestCaseDetails = rally.getClient().doGet(queryURL);
 				ApiKeyClient rally = this.getRallyApiKeyClient(apiKey);
 				jsonTestCases = rally.doGet(queryURL);
 				
@@ -356,7 +408,6 @@ public class MyUtility {
 					ACWebServicesException ace = new ACWebServicesException(ioe);
 					ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
 					throw ace;
-				//	authenticated = false;
 				}
 			}
 			
@@ -370,7 +421,6 @@ public class MyUtility {
 				ACWebServicesException ace = new ACWebServicesException(ioe);
 				ace.setErrorMessage("API Key was not authenticated. Original Error Message: " + err);
 				throw ace;
-			//	authenticated = false;
 			} else {
 				ACWebServicesException ace = new ACWebServicesException(ioe);
 				ace.setErrorMessage("IOException encountered. QueryURL = " + finalQueryString + "<br>Original Error Message: " + err);
@@ -407,44 +457,17 @@ public class MyUtility {
 	public ArrayList<RallyTimebox> queryTimeboxes(String apiKey, String projectName, String timeboxType) throws ACWebServicesException {
 		
 		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
-		ArrayList<RallyTimebox> rallyTimeboxes = new ArrayList<RallyTimebox>();
 		String result = new String();			
 		String finalQueryString = new String();
 		
-		
-		// boolean authenticated = true;
 		try {
 			String queryString = "(Project.Name = \""+projectName+"\")";
 			String queryURL = "/" + timeboxType + "?query=" + URLEncoder.encode(queryString,"UTF-8") + "&fetch=true&start=1&pagesize=20&order=";	
 			finalQueryString = queryURL;
 			
 			result = rally.getClient().doGet(queryURL);
-			JSONObject jsonResult = new JSONObject(result);
-			JSONObject jsonQueryResult = jsonResult.getJSONObject("QueryResult");
 			
-			int resultCount = jsonQueryResult.optInt("TotalResultCount");
-			if (resultCount==0) {
-				RallyTimebox timeboxObject = new RallyTimebox();
-				rallyTimeboxes.add(timeboxObject);
-				return rallyTimeboxes;
-			}
-			
-			try {
-				JSONArray jsonArr = jsonQueryResult.getJSONArray("Results");
-				for (int i=0; i<resultCount; i++) {
-					JSONObject jsonTimebox = jsonArr.getJSONObject(i);
-					RallyTimebox timeboxObject = new RallyTimebox(timeboxType, jsonTimebox);
-					rallyTimeboxes.add(timeboxObject);
-				}
-				
-			return rallyTimeboxes;
-			
-			} catch (JSONException je) {
-				String err = je.getMessage();
-				ACWebServicesException ace = new ACWebServicesException(je);
-				ace.setErrorMessage("JSONException encountered. Original Error Message: " + err);
-				throw ace;
-			}
+			return this.parseJSONResultForListOfTimeboxes(result, timeboxType);
 			
 		} catch (java.io.IOException ioe) {
 			String err = ioe.getMessage();
@@ -465,6 +488,8 @@ public class MyUtility {
 		// return rallyTimeboxes;
 
 	}
+	
+	
 	public ArrayList<RallyTimebox> queryMilestonesForProject(String apiKey, String projectName) throws ACWebServicesException {
 		
 		RallyRestApi rally = this.connectToRallyUsingAPIKey(apiKey);
