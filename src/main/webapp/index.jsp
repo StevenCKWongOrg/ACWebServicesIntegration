@@ -11,5 +11,7 @@
 <h2><a href="index-getuserdetails.jsp">Demo Get User Details</a></h2>
 <h2><a href="index-gettestcasedetails.jsp">Demo Get Test Case Details</a></h2>
 <h2><a href="index-timeboxmanagement.jsp">Demo Timebox Management</a></h2>
+<br><hr>
+<h2><a href="index-createTimebox.jsp">Create a new Timebox</a></h2>
 </body>
 </html>

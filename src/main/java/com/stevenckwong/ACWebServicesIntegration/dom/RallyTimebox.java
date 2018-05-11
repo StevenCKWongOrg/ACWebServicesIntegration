@@ -10,12 +10,14 @@ public class RallyTimebox {
 	private String name;
 	private String startDate;
 	private String endDate;
+	private String projectRef;
 	
 	public RallyTimebox() {
 		this.type="uninitialised";
 		this.name="uninitialised";
 		this.startDate="uninitialised";
 		this.endDate="uninitialised";
+		this.projectRef="uninitialised";
 	}
 	
 	public RallyTimebox(String timeboxType) {
@@ -23,6 +25,7 @@ public class RallyTimebox {
 		this.name = "uninitialised";
 		this.startDate = "uninitialised";
 		this.endDate = "uninitialised";
+		this.projectRef = "uninitialised";
 	}
 	
 	public RallyTimebox(String timeboxType, JSONObject json) {
@@ -77,6 +80,54 @@ public class RallyTimebox {
 		this.endDate = endDate;
 	}
 	
-	
+	public String getJSON() {
+		
+		/** This is a sample JSON structure for Release 
+		 * { 
+			"Release": {
+				"Name":"timebox name",
+				"Notes":"timebox notes",
+				"State":"Planning",
+				"PlannedVelocity": 63.0,
+				"ReleaseStartDate":"2018-04-13",
+				"ReleaseDate":"2018-04-27",
+				"Project": {
+					"_ref": "https://rally1.rallydev.com/slm/webservice/v2.0/project/196111739164"
+					}
+				}		 
+			}
+		 * 
+		 */
+		
+		
+		JSONObject containerJSON = new JSONObject();
+		JSONObject projectJSON = new JSONObject();
+		JSONObject timeboxJSON = new JSONObject();
+
+		
+		projectJSON.put("_ref", this.getProjectRef());
+		
+		if (this.getType().equals("release")) {
+			timeboxJSON.put("Name", this.getName());
+			timeboxJSON.put("Notes", "created via Web Services call");
+			timeboxJSON.put("State", "Planning");
+			timeboxJSON.put("PlannedVelocity", 0);
+			timeboxJSON.put("ReleaseStartDate", this.getStartDate());
+			timeboxJSON.put("ReleaseDate", this.getEndDate());
+			timeboxJSON.put("Project", projectJSON);
+			containerJSON.put("Release",timeboxJSON);
+		}
+		
+		return containerJSON.toString();
+
+	}
+
+	public String getProjectRef() {
+		return projectRef;
+	}
+
+	public void setProjectRef(String projectRef) {
+		this.projectRef = projectRef;
+	}
 
 }
