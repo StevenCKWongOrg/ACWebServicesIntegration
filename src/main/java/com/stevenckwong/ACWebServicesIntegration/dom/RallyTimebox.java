@@ -116,6 +116,15 @@ public class RallyTimebox {
 			timeboxJSON.put("ReleaseDate", this.getEndDate());
 			timeboxJSON.put("Project", projectJSON);
 			containerJSON.put("Release",timeboxJSON);
+		} else if (this.getType().equals("iteration")) {
+			timeboxJSON.put("Name", this.getName());
+			timeboxJSON.put("Notes", "created via Web Services call");
+			timeboxJSON.put("State", "Planning");
+			timeboxJSON.put("PlannedVelocity", 0);
+			timeboxJSON.put("StartDate", this.getStartDate());
+			timeboxJSON.put("EndDate", this.getEndDate());
+			timeboxJSON.put("Project", projectJSON);
+			containerJSON.put("Iteration",timeboxJSON);
 		}
 		
 		return containerJSON.toString();

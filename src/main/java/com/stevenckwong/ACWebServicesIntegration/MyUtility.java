@@ -611,6 +611,8 @@ public class MyUtility {
 		
 		if (timebox.getType().equals("release")) {
 			url = "/release/create";
+		} else if (timebox.getType().equals("iteration")) {
+			url = "/iteration/create";
 		} else {
 			url = "";
 		}
