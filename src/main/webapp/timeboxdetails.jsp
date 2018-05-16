@@ -10,6 +10,7 @@
 <body>
 <h1>We found the following timeboxes for Project <%= request.getAttribute("projectName") %></h1>
 
+<form action="DeleteTimeboxServlet" method="POST">
 <table style="width: 70%; margin-left: auto; margin-right: auto; border-style: ridge; border-width:medium;">
 	<tr>
 		<td>Timebox Type</td>
@@ -31,9 +32,12 @@
 		for (int i=0; i<rallyTimeboxes.size();i++) {
 			RallyTimebox eachTimebox = rallyTimeboxes.get(i);
 %>
+
 	<tr>
 		<td><%=eachTimebox.getType() %></td>
 		<td><%=eachTimebox.getName() %> <input type=hidden name="<%=eachTimebox.getName() %>" /></td>
+		<td><%=eachTimebox.getObjectID() %> <input type=hidden name="<%=eachTimebox.getObjectID() %>" /></td>
+		<td><input type="submit" value="Delete" name="Delete<%= eachTimebox.getObjectID() %>" /></td>
 	</tr>
 <%		
 		}
@@ -43,5 +47,6 @@
 <% } %>
 	
 </table>
+</form>
 </body>
 </html>

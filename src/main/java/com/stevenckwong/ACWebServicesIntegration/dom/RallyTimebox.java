@@ -11,6 +11,7 @@ public class RallyTimebox {
 	private String startDate;
 	private String endDate;
 	private String projectRef;
+	private String objectID;
 	
 	public RallyTimebox() {
 		this.type="uninitialised";
@@ -18,6 +19,7 @@ public class RallyTimebox {
 		this.startDate="uninitialised";
 		this.endDate="uninitialised";
 		this.projectRef="uninitialised";
+		this.objectID="uninitialised";
 	}
 	
 	public RallyTimebox(String timeboxType) {
@@ -26,6 +28,7 @@ public class RallyTimebox {
 		this.startDate = "uninitialised";
 		this.endDate = "uninitialised";
 		this.projectRef = "uninitialised";
+		this.objectID="uninitialised";
 	}
 	
 	public RallyTimebox(String timeboxType, JSONObject json) {
@@ -33,6 +36,7 @@ public class RallyTimebox {
 		try {
 			this.type = timeboxType;
 			this.name = json.optString("Name");
+			this.objectID = json.optString("ObjectID");
 			
 			if (timeboxType.equalsIgnoreCase("iteration")) {
 				this.startDate = json.optString("StartDate");
@@ -51,6 +55,7 @@ public class RallyTimebox {
 			this.name = "result parsing error";
 			this.startDate = "result parsing error";		
 			this.endDate = "result parsing error";
+			this.objectID = "result parsing error";
 		}
 				
 	}
@@ -145,6 +150,14 @@ public class RallyTimebox {
 
 	public void setProjectRef(String projectRef) {
 		this.projectRef = projectRef;
+	}
+
+	public String getObjectID() {
+		return objectID;
+	}
+
+	public void setObjectID(String objectID) {
+		this.objectID = objectID;
 	}
 
 }
