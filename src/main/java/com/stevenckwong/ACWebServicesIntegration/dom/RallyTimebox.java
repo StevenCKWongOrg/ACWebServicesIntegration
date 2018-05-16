@@ -125,6 +125,14 @@ public class RallyTimebox {
 			timeboxJSON.put("EndDate", this.getEndDate());
 			timeboxJSON.put("Project", projectJSON);
 			containerJSON.put("Iteration",timeboxJSON);
+		} else {
+			// assume that if it is not release nor iteration, it is milestone
+			timeboxJSON.put("Name", this.getName());
+			timeboxJSON.put("Notes", "created via Web Services call");
+			timeboxJSON.put("TargetDate", this.getEndDate());
+			timeboxJSON.put("TargetProject", projectJSON);
+			containerJSON.put("Milestone",timeboxJSON);
+			
 		}
 		
 		return containerJSON.toString();

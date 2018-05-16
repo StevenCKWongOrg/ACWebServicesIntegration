@@ -46,6 +46,8 @@ Specify End Date: <input type=text name="timeboxEndDate" value="2018-05-13" /><b
 <br>
 <div style="font-style:italics">Note: Currently all timeboxes is created in "AC Web Services" team only</div>
 <br>
+<div style="font-style:italics">Note2: If you are creating a Milestone, the end date will be used as the Milestone target date</div>
+<br>
 <input type="Submit" value="Create my Timebox!" id="createTimeboxButton" /><br>
 </form>
 </center>

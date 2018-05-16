@@ -614,7 +614,7 @@ public class MyUtility {
 		} else if (timebox.getType().equals("iteration")) {
 			url = "/iteration/create";
 		} else {
-			url = "";
+			url = "/milestone/create";
 		}
 		/*
 		try {
