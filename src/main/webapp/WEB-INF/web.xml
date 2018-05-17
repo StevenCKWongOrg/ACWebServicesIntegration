@@ -28,6 +28,12 @@
   	<description></description>
   	<servlet-class>com.stevenckwong.ACWebServicesIntegration.CreateTimeboxServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>DeleteTimeboxServlet</servlet-name>
+  	<display-name>DeleteTimeboxServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.stevenckwong.ACWebServicesIntegration.DeleteTimeboxServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>GetDisplayNameServlet</servlet-name>
   	<url-pattern>/GetDisplayNameServlet</url-pattern>
@@ -43,5 +49,9 @@
   <servlet-mapping>
   	<servlet-name>CreateTimeboxServlet</servlet-name>
   	<url-pattern>/CreateTimeboxServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteTimeboxServlet</servlet-name>
+  	<url-pattern>/DeleteTimeboxServlet</url-pattern>
   </servlet-mapping>
 </web-app>

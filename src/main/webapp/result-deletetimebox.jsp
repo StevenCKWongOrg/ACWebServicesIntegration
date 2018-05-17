@@ -8,24 +8,23 @@
 </head>
 <body>
 <%
-	if (request.getAttribute("PutStatus").equals("PASSED")) {
+	if (request.getAttribute("DeleteStatus").equals("PASSED")) {
 %>
-	<b> Your timebox has been successfully created </b>
+	<b> Your timebox has been successfully deleted </b>
 <% 		
 	} else {
 		
 %>		
 
-	<b>Your timebox could not be created</b>
+	<b>Your timebox could not be deleted</b>
 
 <%		
 	}
 %>
 
-<%= request.getAttribute("ErrorMessage") %>
+<%= request.getAttribute("DeleteReturn") %>
 <br><br>
 	<a href="index.jsp">Back to Main Page</a><br>
 	<a href="index-timeboxmanagement.jsp">Back to Timebox Management page</a><br>
-	<a href="index-createTimebox.jsp">Back to Timebox Creation page</a><br>
 </body>
 </html>

@@ -17,9 +17,20 @@ public class MyUtility {
 	static public int PUT_PASSED = 1;
 	static public int PUT_FAILED = 0;
 	
+	static public int DEL_PASSED = 1;
+	static public int DEL_FAILED = 0;
+	
 	
 	public MyUtility() {
 		
+	}
+	
+	static public String getReadOnlyApiKey() {
+		return "_BRkPjjnfSLuH0zxapb2XyJOzETEybERZpsxrZ69OSI";
+	}
+	
+	static public String getReadWriteApiKey() {
+		return "_CGJbIEnhQDq45u70AWVPFcMsEmGCkO6tZEhYDyg5Dw";
 	}
 	
 	public String getWorkspaceStringForQuery() {
@@ -663,6 +674,46 @@ public class MyUtility {
 		}
 		
 		return projectRef;
+	}
+	
+	public String deleteTimebox(String apikey, RallyTimebox timebox) throws ACWebServicesException {
+		
+		String url;
+		String body = new String();
+		
+		if (timebox.getType().equals("release")) {
+			url = "/release/" + timebox.getObjectID();
+		} else if (timebox.getType().equals("iteration")) {
+			url = "/iteration/" + timebox.getObjectID();
+		} else {
+			url = "/milestone/" + timebox.getObjectID();
+		}		
+		
+		String strReturn = new String();
+		
+		ApiKeyClient client = this.getRallyApiKeyClient(apikey);
+		
+		try {
+			
+			// strReturn = client.doPut(url, body);
+			strReturn = client.doDelete(url);
+			
+		} catch (IOException ioe) {
+			
+			ioe.printStackTrace();
+			ACWebServicesException ace = new ACWebServicesException(ioe);
+			StackTraceElement[] stackTrace = ioe.getStackTrace();
+			StringBuffer stackTraceMessages = new StringBuffer();
+			for (int i = 0; i < stackTrace.length; i++) {
+				stackTraceMessages.append(stackTrace[i].toString());
+				stackTraceMessages.append("\n");
+			}
+			ace.setErrorMessage(body + "\n\n\n" + strReturn + "\n\n\n" + ioe.getMessage() + "\n\n\n" + stackTraceMessages);
+			throw ace;
+		}		
+		
+		return strReturn;
+		
 	}
 	
 }

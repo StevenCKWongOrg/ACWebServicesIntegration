@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.stevenckwong.ACWebServicesIntegration.MyUtility" %>    
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,7 +30,7 @@ Select Timebox Results Panel Colour:
 		<option value="red">Red</option>
 	</select><br>
 <br>
-<input type="hidden" name="apikey" value="_BRkPjjnfSLuH0zxapb2XyJOzETEybERZpsxrZ69OSI" size="40"/> <br>
+<input type="hidden" name="apikey" value="<%= MyUtility.getReadOnlyApiKey() %>" size="40"/> <br>
 Specify Project Name: <input type=text name="projectName" value="AC Web Services" /><br>
 <br>
 Select Timebox to Query: 
