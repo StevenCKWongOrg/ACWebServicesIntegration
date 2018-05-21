@@ -20,8 +20,6 @@
 				<h3>Input Parameters</h3>
 				Searching for ID: <%=(String)request.getAttribute("testcaseid") %><br>
 				<br>
-				API Key: <%=(String)request.getAttribute("apikey") %><br>
-				<br>
 			</td>
 		</tr>
 		<tr>

@@ -57,15 +57,19 @@ public class GetTestCaseServlet extends HttpServlet {
 	}
 
 	public void processTestCaseDetailsQueries(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		MyUtility myUtil = new MyUtility();
+		
 		String tcid = (String)request.getParameter("testcaseid");
 		String tcName = (String)request.getParameter("testcasename");
-		String apikey = (String)request.getParameter("apikeyForTC");
+		//String apikey = (String)request.getParameter("apikeyForTC");
+		String apikey = myUtil.getReadOnlyApiKey();
 		String panelColour = (String)request.getParameter("panelColour");
 		
 		String result = "No Result";
 		RallyTestCase tcObject = new RallyTestCase();
 		
-		MyUtility myUtil = new MyUtility();
+		
 		
 		try {
 			// check which Get Test Case button is clicked...
@@ -102,11 +106,15 @@ public class GetTestCaseServlet extends HttpServlet {
 	}
 	
 	public void processTestCaseListQueries(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		MyUtility myUtil = new MyUtility();
+		
 		// TODO Auto-generated method stub
 		String tcid = (String)request.getParameter("testcaseid");
 		String tcName = (String)request.getParameter("testcasename");
 		String partialTCName = (String)request.getParameter("partialtestcasename");
-		String apikey = (String)request.getParameter("apikeyForTC");
+		// String apikey = (String)request.getParameter("apikeyForTC");
+		String apikey = myUtil.getReadOnlyApiKey();
 		String panelColour = (String)request.getParameter("panelColour");
 		String ownerUsername = (String)request.getParameter("ownerUsername");
 		String workProductID = (String)request.getParameter("workproductid");
@@ -114,7 +122,7 @@ public class GetTestCaseServlet extends HttpServlet {
 		String result = "No Result";
 		ArrayList<RallyTestCase> rallyTestCases = new ArrayList<RallyTestCase>();
 		
-		MyUtility myUtil = new MyUtility();
+		
 		
 		try {
 			// check which Get Test Case button is clicked...
@@ -142,7 +150,7 @@ public class GetTestCaseServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("testcaseid", tcid);
-		request.setAttribute("apikey", apikey);
+		// request.setAttribute("apikey", apikey);
 		request.setAttribute("testCases", rallyTestCases);
 		request.setAttribute("rawResult", result);
 		request.setAttribute("panelColour", panelColour);
