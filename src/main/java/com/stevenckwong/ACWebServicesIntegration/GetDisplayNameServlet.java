@@ -37,10 +37,11 @@ public class GetDisplayNameServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String username = request.getParameter("username");
-		String apikey = request.getParameter("apikey");
-		
 		MyUtility myUtil = new MyUtility();
+		
+		String username = request.getParameter("username");
+		// String apikey = request.getParameter("apikey");
+		String apikey = myUtil.getReadOnlyApiKey();
 		
 		/*  // Refactored this part into MyUtility
 		 * 
