@@ -7,11 +7,32 @@
 <title>Web Application to Demo Java Integration with Rally</title>
 </head>
 <body>
-<h1>Demo Application - Access Agile Central using WSAPI</h1>
-<h2><a href="index-getuserdetails.jsp">Demo Get User Details</a></h2>
-<h2><a href="index-gettestcasedetails.jsp">Demo Get Test Case Details</a></h2>
-<h2><a href="index-timeboxmanagement.jsp">Demo Timebox Management</a></h2>
+<h1 style="text-align:center;">Demo Application - Access Agile Central using WSAPI</h1>
+<table style="width: 70%; margin-left: auto; margin-right: auto; border-style: inset; border-width:medium; text-align:center;">
+	<tr>
+		<td style="border-style: inset; border-width:medium; width: 33%;">
+			<h2>User Management</h2>
+		</td>
+		<td style="border-style: inset; border-width:medium; width: 33%;">
+			<h2>Test Case Management</h2>
+		</td>
+		<td style="border-style: inset; border-width:medium; width: 33%;">
+			<h2>Timebox Management</h2>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="index-getuserdetails.jsp">Retrieve User Details</a>
+		</td>
+		<td>
+			<a href="index-gettestcasedetails.jsp">Retrieve Test Case Details</a>
+		</td>
+		<td>
+			<a href="index-timeboxmanagement.jsp">Retrieve Timebox Details</a><br>
+			<a href="index-createTimebox.jsp">Create a new Timebox</a>
+		</td>
+	</tr>
+</table>
 <br><hr>
-<h2><a href="index-createTimebox.jsp">Create a new Timebox</a></h2>
 </body>
 </html>
