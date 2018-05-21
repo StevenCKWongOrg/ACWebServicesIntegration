@@ -116,8 +116,8 @@ public class GetDisplayNameUITest {
 		usernameBox.clear();
 		usernameBox.sendKeys("training01@cajapan.com");
 		
-		WebElement apikeyBox = driver.findElement(By.name("apikey"));
-		apikeyBox.clear();
+		// WebElement apikeyBox = driver.findElement(By.name("apikey"));
+		// apikeyBox.clear();
 		// apikeyBox.sendKeys("_x3imUPkjQdiySkvNCrs0d03TiJhzCkkEmswt6fpHOao"); // good API Key
 		// apikeyBox.sendKeys("_x3imUPkjQdiySkvNCrs0d03TiJhzCkkEmswt6fpHOxx"); // bad API Key
 		
